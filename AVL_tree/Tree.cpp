@@ -1,13 +1,5 @@
 ﻿#include "Tree.h"
 
-//Конструктор с параметром для "Узла"
-Tree::Node::Node(int value)
-{
-	Node::value = value;
-	left = nullptr;
-	right = nullptr;
-}
-
 //Конструктор по умолчанию для "Дерева"
 Tree::Tree()
 {
@@ -33,9 +25,9 @@ Tree& Tree::operator=(const Tree& other)
 }
 
 //Вставка элемента в дерево
-void Tree::insert(int value)
+bool Tree::insert(int value)
 {
-
+	return insertTo(root, value);
 }
 
 //Поиск элемента в дереве
@@ -54,4 +46,41 @@ std::string Tree::toString() const
 std::ostream& operator<<(std::ostream& out, const Tree& tree)
 {
 	return out;
+}
+
+
+
+//Конструктор с параметром для "Узла"
+Tree::Node::Node(int value)
+{
+	Node::value = value;
+	left = nullptr;
+	right = nullptr;
+}
+
+
+
+//Рекурсивная функция вставки в поддерево
+//subtreeRoot - корень поддерева, в которое вставляем новый элемент
+bool Tree::insertTo(Node*& subtreeRoot, int newValue)
+{
+	//найдено место для вставки
+	if (subtreeRoot == nullptr)
+	{
+		subtreeRoot = new Node(newValue);
+		return true;
+	}
+
+	if (newValue < subtreeRoot->value)
+	{
+		return insertTo(subtreeRoot->left, newValue);
+	}
+
+	if (newValue > subtreeRoot->value)
+	{
+		return insertTo(subtreeRoot->right, newValue);
+	}
+
+	//newValue == subtreeRoot->value
+	return false;
 }

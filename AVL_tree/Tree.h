@@ -8,19 +8,6 @@
 */
 class Tree
 {
-private:
-	//Вспомогательная структура "Узел"
-	struct Node
-	{
-		Node(int value);
-
-		int value;
-		Node* left;
-		Node* right;
-	};
-
-	//Указатель на корневой элемент дерева
-	Node* root;
 public:
 	/*
 	* @brief Конструктор по умолчанию
@@ -48,8 +35,9 @@ public:
 	/*
 	* @brief Вставка элемента в дерево
 	* @param value значение для вставки
+	* @return информацию о том, найден ли элемент
 	*/
-	void insert(int value);
+	bool insert(int value);
 
 	/*
 	* @brief Поиск элемента в дереве
@@ -71,5 +59,25 @@ public:
 	* @return поток вывода для конвейерной работы
 	*/
 	friend std::ostream& operator<<(std::ostream& out, const Tree& tree);
+
+private:
+	//Вспомогательная структура "Узел"
+	struct Node
+	{
+		Node(int value);
+
+		int value;
+		Node* left;
+		Node* right;
+	};
+
+private:
+	//Указатель на корневой элемент дерева
+	Node* root;
+
+private:
+	//Рекурсивная функция вставки в поддерево
+	bool insertTo(Node*& subtreeRoot, int newValue);
+
 };
 
