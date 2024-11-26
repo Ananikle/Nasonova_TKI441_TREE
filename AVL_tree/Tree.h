@@ -9,7 +9,18 @@
 class Tree
 {
 private:
+	//Вспомогательная структура "Узел"
+	struct Node
+	{
+		Node(int value);
 
+		int value;
+		Node* left;
+		Node* right;
+	};
+
+	//Указатель на корневой элемент дерева
+	Node* root;
 public:
 	/*
 	* @brief Конструктор по умолчанию
