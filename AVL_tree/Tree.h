@@ -90,7 +90,7 @@ private:
 
 private:
 	//Рекурсивная функция вставки в поддерево
-	bool insertTo(Node*& subtreeRoot, int newValue);
+	static bool insertTo(Node*& subtreeRoot, int newValue);
 
 };
 
