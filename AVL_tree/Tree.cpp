@@ -1,9 +1,9 @@
 ﻿#include "Tree.h"
 
 //Конструктор по умолчанию для "Дерева"
-Tree::Tree()
+Tree::Tree() : root(nullptr)
 {
-	root = nullptr;
+	
 }
 
 //Конструктор копирования
@@ -12,14 +12,27 @@ Tree::Tree(const Tree& other)
 
 }
 
-//Деструктор
-Tree::~Tree()
+//Конструктор перемещения
+Tree::Tree(Tree&& other)
 {
 
 }
 
-//Оператор присваивания
+//Деструктор
+Tree::~Tree()
+{
+	destroyTree(root);
+	root = nullptr;
+}
+
+//Оператор присваивания с копированием
 Tree& Tree::operator=(const Tree& other)
+{
+	return *this;
+}
+
+//Оператор присваивания с перемещением
+Tree& Tree::operator=(Tree&& other)
 {
 	return *this;
 }
@@ -33,7 +46,7 @@ bool Tree::insert(int value)
 //Поиск элемента в дереве
 bool Tree::find(int value) const
 {
-	return false;
+	return findIn(root, value);
 }
 
 //Получение строкового предстваления дерева
@@ -83,4 +96,41 @@ bool Tree::insertTo(Node*& subtreeRoot, int newValue)
 
 	//newValue == subtreeRoot->value
 	return false;
+}
+
+//Рекурсивная функция поиска в поддереве
+//subtreeRoot - корень поддерева, в котором ищем элемент
+bool Tree::findIn(const Node* subtreeRoot, int valueToFind)
+{
+	//Если нет узла в поддереве
+	if (subtreeRoot == nullptr)
+	{
+		return false;
+	}
+
+	if (valueToFind < subtreeRoot->value)
+	{
+		return findIn(subtreeRoot->left, valueToFind);
+	}
+
+	if (valueToFind > subtreeRoot->value)
+	{
+		return findIn(subtreeRoot->right, valueToFind);
+	}
+
+	//valueToFind == subtreeRoot->value
+	return true;
+}
+
+//Рекурсивная функция удаления дерева из памяти
+void Tree::destroyTree(const Node* subtreeRoot)
+{
+	if (subtreeRoot == nullptr)
+	{
+		return;
+	}
+
+	destroyTree(subtreeRoot->left);
+	destroyTree(subtreeRoot->right);
+	delete subtreeRoot;
 }

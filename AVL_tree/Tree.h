@@ -21,16 +21,29 @@ public:
 	Tree(const Tree& other);
 
 	/*
+	* @brief Конструктор перемещения
+	* @param other дерево, откуда перемещаем
+	*/
+	Tree(Tree&& other);
+
+	/*
 	* @brief Деструктор
 	*/
 	~Tree();
 
 	/*
-	* @brief Присвоение
+	* @brief Присвоение с копированием
 	* @param other дерево, откуда копируем
 	* @return дерево, куда скопировали
 	*/
 	Tree& operator=(const Tree& other);
+
+	/*
+	* @brief Присвоение с перемещением
+	* @param other дерево, откуда перемещаем
+	* @return дерево, куда переместили
+	*/
+	Tree& operator=(Tree&& other);
 
 	/*
 	* @brief Вставка элемента в дерево
@@ -77,7 +90,12 @@ private:
 
 private:
 	//Рекурсивная функция вставки в поддерево
-	bool insertTo(Node*& subtreeRoot, int newValue);
+	static bool insertTo(Node*& subtreeRoot, int newValue);
 
+	//Рекурсивная функция поиска в поддереве
+	static bool findIn(const Node* subtreeRoot, int valueToFind);
+
+	//Рекурсивная функция удаления дерева из памяти
+	static void destroyTree(const Node* subtreeRoot);
 };
 
