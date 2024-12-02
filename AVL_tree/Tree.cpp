@@ -12,14 +12,26 @@ Tree::Tree(const Tree& other)
 
 }
 
+//Конструктор перемещения
+Tree::Tree(Tree&& other)
+{
+
+}
+
 //Деструктор
 Tree::~Tree()
 {
 
 }
 
-//Оператор присваивания
+//Оператор присваивания с копированием
 Tree& Tree::operator=(const Tree& other)
+{
+	return *this;
+}
+
+//Оператор присваивания с перемещением
+Tree& Tree::operator=(Tree&& other)
 {
 	return *this;
 }

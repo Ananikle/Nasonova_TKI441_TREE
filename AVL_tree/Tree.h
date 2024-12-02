@@ -21,16 +21,29 @@ public:
 	Tree(const Tree& other);
 
 	/*
+	* @brief Конструктор перемещения
+	* @param other дерево, откуда перемещаем
+	*/
+	Tree(Tree&& other);
+
+	/*
 	* @brief Деструктор
 	*/
 	~Tree();
 
 	/*
-	* @brief Присвоение
+	* @brief Присвоение с копированием
 	* @param other дерево, откуда копируем
 	* @return дерево, куда скопировали
 	*/
 	Tree& operator=(const Tree& other);
+
+	/*
+	* @brief Присвоение с перемещением
+	* @param other дерево, откуда перемещаем
+	* @return дерево, куда переместили
+	*/
+	Tree& operator=(Tree&& other);
 
 	/*
 	* @brief Вставка элемента в дерево
