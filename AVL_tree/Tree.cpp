@@ -21,7 +21,8 @@ Tree::Tree(Tree&& other)
 //Деструктор
 Tree::~Tree()
 {
-
+	destroyTree(root);
+	root = nullptr;
 }
 
 //Оператор присваивания с копированием
@@ -119,4 +120,17 @@ bool Tree::findIn(const Node* subtreeRoot, int valueToFind)
 
 	//valueToFind == subtreeRoot->value
 	return true;
+}
+
+//Рекурсивная функция удаления дерева из памяти
+void Tree::destroyTree(const Node* subtreeRoot)
+{
+	if (subtreeRoot == nullptr)
+	{
+		return;
+	}
+
+	destroyTree(subtreeRoot->left);
+	destroyTree(subtreeRoot->right);
+	delete subtreeRoot;
 }

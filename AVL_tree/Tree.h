@@ -94,5 +94,8 @@ private:
 
 	//Рекурсивная функция поиска в поддереве
 	static bool findIn(const Node* subtreeRoot, int valueToFind);
+
+	//Рекурсивная функция удаления дерева из памяти
+	static void destroyTree(const Node* subtreeRoot);
 };
 
