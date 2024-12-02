@@ -45,7 +45,7 @@ bool Tree::insert(int value)
 //Поиск элемента в дереве
 bool Tree::find(int value) const
 {
-	return false;
+	return findIn(root, value);
 }
 
 //Получение строкового предстваления дерева
@@ -95,4 +95,28 @@ bool Tree::insertTo(Node*& subtreeRoot, int newValue)
 
 	//newValue == subtreeRoot->value
 	return false;
+}
+
+//Рекурсивная функция поиска в поддереве
+//subtreeRoot - корень поддерева, в котором ищем элемент
+bool Tree::findIn(const Node* subtreeRoot, int valueToFind)
+{
+	//Если нет узла в поддереве
+	if (subtreeRoot == nullptr)
+	{
+		return false;
+	}
+
+	if (valueToFind < subtreeRoot->value)
+	{
+		return findIn(subtreeRoot->left, valueToFind);
+	}
+
+	if (valueToFind > subtreeRoot->value)
+	{
+		return findIn(subtreeRoot->right, valueToFind);
+	}
+
+	//valueToFind == subtreeRoot->value
+	return true;
 }

@@ -92,5 +92,7 @@ private:
 	//Рекурсивная функция вставки в поддерево
 	static bool insertTo(Node*& subtreeRoot, int newValue);
 
+	//Рекурсивная функция поиска в поддереве
+	static bool findIn(const Node* subtreeRoot, int valueToFind);
 };
 
