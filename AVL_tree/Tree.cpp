@@ -1,9 +1,9 @@
 ﻿#include "Tree.h"
 
 //Конструктор по умолчанию для "Дерева"
-Tree::Tree()
+Tree::Tree() : root(nullptr)
 {
-	root = nullptr;
+	
 }
 
 //Конструктор копирования
