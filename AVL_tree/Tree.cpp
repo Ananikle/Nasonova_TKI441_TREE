@@ -3,7 +3,7 @@
 //Конструктор по умолчанию для "Дерева"
 Tree::Tree() : root(nullptr)
 {
-	
+
 }
 
 //Конструктор копирования
@@ -13,7 +13,7 @@ Tree::Tree(const Tree& other)
 }
 
 //Конструктор перемещения
-Tree::Tree(Tree&& other)
+Tree::Tree(Tree&& other) noexcept
 {
 
 }
@@ -32,7 +32,7 @@ Tree& Tree::operator=(const Tree& other)
 }
 
 //Оператор присваивания с перемещением
-Tree& Tree::operator=(Tree&& other)
+Tree& Tree::operator=(Tree&& other) noexcept
 {
 	return *this;
 }
@@ -40,33 +40,46 @@ Tree& Tree::operator=(Tree&& other)
 //Вставка элемента в дерево
 bool Tree::insert(int value)
 {
-	return insertTo(root, value);
+	return insertTo(root, nullptr, value);
 }
 
 //Поиск элемента в дереве
 bool Tree::find(int value) const
 {
+	root->value;
 	return findIn(root, value);
+}
+
+//Удаление элемента из дерева
+bool Tree::remove(int value)
+{
+	return false;
 }
 
 //Получение строкового предстваления дерева
 std::string Tree::toString() const
 {
-	return "";
+	std::string result;
+	putToString(root, result);
+	result.pop_back();
+	return result;
 }
 
 //Оператор вывода в поток
 std::ostream& operator<<(std::ostream& out, const Tree& tree)
 {
+	Tree::print(tree.root, out, 0);
 	return out;
 }
 
 
 
 //Конструктор с параметром для "Узла"
-Tree::Node::Node(int value)
+Tree::Node::Node(int value, Node* parent)
 {
+	depth = 1;
 	Node::value = value;
+	Node::parent = parent;
 	left = nullptr;
 	right = nullptr;
 }
@@ -75,23 +88,23 @@ Tree::Node::Node(int value)
 
 //Рекурсивная функция вставки в поддерево
 //subtreeRoot - корень поддерева, в которое вставляем новый элемент
-bool Tree::insertTo(Node*& subtreeRoot, int newValue)
+bool Tree::insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue)
 {
 	//найдено место для вставки
 	if (subtreeRoot == nullptr)
 	{
-		subtreeRoot = new Node(newValue);
+		subtreeRoot = new Node(newValue, subtreeParent);
 		return true;
 	}
 
 	if (newValue < subtreeRoot->value)
 	{
-		return insertTo(subtreeRoot->left, newValue);
+		return insertTo(subtreeRoot->left, subtreeRoot ,newValue);
 	}
 
 	if (newValue > subtreeRoot->value)
 	{
-		return insertTo(subtreeRoot->right, newValue);
+		return insertTo(subtreeRoot->right, subtreeRoot, newValue);
 	}
 
 	//newValue == subtreeRoot->value
@@ -121,6 +134,40 @@ bool Tree::findIn(const Node* subtreeRoot, int valueToFind)
 	//valueToFind == subtreeRoot->value
 	return true;
 }
+
+//Рекурсивная функция печати в поток
+void Tree::print(const Node* subtreeRoot, std::ostream& out, unsigned lvl)
+{
+	if (subtreeRoot == nullptr)
+	{
+		return;
+	}
+
+	print(subtreeRoot->right, out, lvl + 1);
+	
+	for (unsigned i = 0; i < lvl; ++i)
+	{
+		out << "    ";
+	}
+	out << subtreeRoot->value << std::endl;
+
+	print(subtreeRoot->left, out, lvl + 1);
+}
+
+//Рекурсивная функция вывода дерева в строку
+void Tree::putToString(const Node* subtreeRoot, std::string& str)
+{
+	if (subtreeRoot == nullptr)
+	{
+		return;
+	}
+
+	putToString(subtreeRoot->left, str);
+	str += std::to_string(subtreeRoot->value);
+	str += " ";
+	putToString(subtreeRoot->right, str);
+}
+
 
 //Рекурсивная функция удаления дерева из памяти
 void Tree::destroyTree(const Node* subtreeRoot)
