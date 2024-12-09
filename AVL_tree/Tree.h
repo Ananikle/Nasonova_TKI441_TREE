@@ -77,9 +77,10 @@ private:
 	//Вспомогательная структура "Узел"
 	struct Node
 	{
-		Node(int value);
+		Node(int value, Node* parent);
 
 		int value;
+		Node* parent;
 		Node* left;
 		Node* right;
 	};

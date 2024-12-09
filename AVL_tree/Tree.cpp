@@ -3,7 +3,7 @@
 //Конструктор по умолчанию для "Дерева"
 Tree::Tree() : root(nullptr)
 {
-	
+
 }
 
 //Конструктор копирования
@@ -64,9 +64,10 @@ std::ostream& operator<<(std::ostream& out, const Tree& tree)
 
 
 //Конструктор с параметром для "Узла"
-Tree::Node::Node(int value)
+Tree::Node::Node(int value, Node* parent)
 {
 	Node::value = value;
+	Node::parent = parent;
 	left = nullptr;
 	right = nullptr;
 }
