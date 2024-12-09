@@ -33,6 +33,8 @@ int main()
 			std::cout << std::setw(4) << (t.find(i) ? "yes" : "-") << "|";
 		}
 		std::cout << std::endl;
+
+		std::cout << t << std::endl;
 	}
 	//дерево перестало "жить"
 	
