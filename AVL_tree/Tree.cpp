@@ -40,7 +40,7 @@ Tree& Tree::operator=(Tree&& other) noexcept
 //Вставка элемента в дерево
 bool Tree::insert(int value)
 {
-	return insertTo(root, value);
+	return insertTo(root, nullptr, value);
 }
 
 //Поиск элемента в дереве
@@ -76,23 +76,23 @@ Tree::Node::Node(int value, Node* parent)
 
 //Рекурсивная функция вставки в поддерево
 //subtreeRoot - корень поддерева, в которое вставляем новый элемент
-bool Tree::insertTo(Node*& subtreeRoot, int newValue)
+bool Tree::insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue)
 {
 	//найдено место для вставки
 	if (subtreeRoot == nullptr)
 	{
-		subtreeRoot = new Node(newValue);
+		subtreeRoot = new Node(newValue, subtreeParent);
 		return true;
 	}
 
 	if (newValue < subtreeRoot->value)
 	{
-		return insertTo(subtreeRoot->left, newValue);
+		return insertTo(subtreeRoot->left, subtreeRoot ,newValue);
 	}
 
 	if (newValue > subtreeRoot->value)
 	{
-		return insertTo(subtreeRoot->right, newValue);
+		return insertTo(subtreeRoot->right, subtreeRoot, newValue);
 	}
 
 	//newValue == subtreeRoot->value
