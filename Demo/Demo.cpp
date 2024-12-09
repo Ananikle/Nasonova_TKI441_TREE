@@ -35,6 +35,8 @@ int main()
 		std::cout << std::endl;
 
 		std::cout << t << std::endl;
+
+		std::cout << t.toString() << std::endl;
 	}
 	//дерево перестало "жить"
 	
