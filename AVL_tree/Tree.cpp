@@ -46,6 +46,7 @@ bool Tree::insert(int value)
 //Поиск элемента в дереве
 bool Tree::find(int value) const
 {
+	root->value;
 	return findIn(root, value);
 }
 
@@ -64,6 +65,7 @@ std::string Tree::toString() const
 //Оператор вывода в поток
 std::ostream& operator<<(std::ostream& out, const Tree& tree)
 {
+	Tree::print(tree.root, out);
 	return out;
 }
 
@@ -128,6 +130,21 @@ bool Tree::findIn(const Node* subtreeRoot, int valueToFind)
 	//valueToFind == subtreeRoot->value
 	return true;
 }
+
+//Рекурсивная функция печати в поток
+void Tree::print(const Node* subtreeRoot, std::ostream& out)
+{
+	if (subtreeRoot == nullptr)
+	{
+		return;
+	}
+
+	print(subtreeRoot->left, out);
+	out << subtreeRoot->value << " ";
+	print(subtreeRoot->right, out);
+}
+
+
 
 //Рекурсивная функция удаления дерева из памяти
 void Tree::destroyTree(const Node* subtreeRoot)
