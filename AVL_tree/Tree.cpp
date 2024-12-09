@@ -49,6 +49,12 @@ bool Tree::find(int value) const
 	return findIn(root, value);
 }
 
+//Удаление элемента из дерева
+bool Tree::remove(int value)
+{
+	return false;
+}
+
 //Получение строкового предстваления дерева
 std::string Tree::toString() const
 {

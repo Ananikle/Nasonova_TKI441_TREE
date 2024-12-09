@@ -60,6 +60,13 @@ public:
 	bool find(int value) const;
 
 	/*
+	* @brief Удаление элемента из дерева
+	* @param value значение для удаления
+	* @return информацию о том, удален ли элемент
+	*/
+	bool remove(int value);
+
+	/*
 	* @brief Приведение дерева к строке
 	* @return строковое представление дерева
 	*/
