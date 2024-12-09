@@ -106,6 +106,9 @@ private:
 	//Рекурсивная функция печати в поток
 	static void print(const Node* subtreeRoot, std::ostream& out, unsigned lvl);
 
+	//Рекурсивная функция вывода дерева в строку
+	static void putToString(const Node* subtreeRoot, std::string& str);
+
 	//Рекурсивная функция удаления дерева из памяти
 	static void destroyTree(const Node* subtreeRoot);
 };

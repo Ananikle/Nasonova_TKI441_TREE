@@ -59,7 +59,10 @@ bool Tree::remove(int value)
 //Получение строкового предстваления дерева
 std::string Tree::toString() const
 {
-	return "";
+	std::string result;
+	putToString(root, result);
+	result.pop_back();
+	return result;
 }
 
 //Оператор вывода в поток
@@ -150,6 +153,19 @@ void Tree::print(const Node* subtreeRoot, std::ostream& out, unsigned lvl)
 	print(subtreeRoot->left, out, lvl + 1);
 }
 
+//Рекурсивная функция вывода дерева в строку
+void Tree::putToString(const Node* subtreeRoot, std::string& str)
+{
+	if (subtreeRoot == nullptr)
+	{
+		return;
+	}
+
+	putToString(subtreeRoot->left, str);
+	str += std::to_string(subtreeRoot->value);
+	str += " ";
+	putToString(subtreeRoot->right, str);
+}
 
 
 //Рекурсивная функция удаления дерева из памяти
