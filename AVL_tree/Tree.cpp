@@ -13,7 +13,7 @@ Tree::Tree(const Tree& other)
 }
 
 //Конструктор перемещения
-Tree::Tree(Tree&& other)
+Tree::Tree(Tree&& other) noexcept
 {
 
 }
@@ -32,7 +32,7 @@ Tree& Tree::operator=(const Tree& other)
 }
 
 //Оператор присваивания с перемещением
-Tree& Tree::operator=(Tree&& other)
+Tree& Tree::operator=(Tree&& other) noexcept
 {
 	return *this;
 }

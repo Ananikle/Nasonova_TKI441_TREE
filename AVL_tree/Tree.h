@@ -24,7 +24,7 @@ public:
 	* @brief Конструктор перемещения
 	* @param other дерево, откуда перемещаем
 	*/
-	Tree(Tree&& other);
+	Tree(Tree&& other) noexcept;
 
 	/*
 	* @brief Деструктор
@@ -43,7 +43,7 @@ public:
 	* @param other дерево, откуда перемещаем
 	* @return дерево, куда переместили
 	*/
-	Tree& operator=(Tree&& other);
+	Tree& operator=(Tree&& other) noexcept;
 
 	/*
 	* @brief Вставка элемента в дерево
