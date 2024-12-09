@@ -65,7 +65,7 @@ std::string Tree::toString() const
 //Оператор вывода в поток
 std::ostream& operator<<(std::ostream& out, const Tree& tree)
 {
-	Tree::print(tree.root, out);
+	Tree::print(tree.root, out, 0);
 	return out;
 }
 
@@ -132,16 +132,22 @@ bool Tree::findIn(const Node* subtreeRoot, int valueToFind)
 }
 
 //Рекурсивная функция печати в поток
-void Tree::print(const Node* subtreeRoot, std::ostream& out)
+void Tree::print(const Node* subtreeRoot, std::ostream& out, unsigned lvl)
 {
 	if (subtreeRoot == nullptr)
 	{
 		return;
 	}
 
-	print(subtreeRoot->left, out);
-	out << subtreeRoot->value << " ";
-	print(subtreeRoot->right, out);
+	print(subtreeRoot->right, out, lvl + 1);
+	
+	for (unsigned i = 0; i < lvl; ++i)
+	{
+		out << "    ";
+	}
+	out << subtreeRoot->value << std::endl;
+
+	print(subtreeRoot->left, out, lvl + 1);
 }
 
 

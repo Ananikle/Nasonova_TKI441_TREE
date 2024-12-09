@@ -104,7 +104,7 @@ private:
 	static bool findIn(const Node* subtreeRoot, int valueToFind);
 
 	//Рекурсивная функция печати в поток
-	static void print(const Node* subtreeRoot, std::ostream& out);
+	static void print(const Node* subtreeRoot, std::ostream& out, unsigned lvl);
 
 	//Рекурсивная функция удаления дерева из памяти
 	static void destroyTree(const Node* subtreeRoot);
