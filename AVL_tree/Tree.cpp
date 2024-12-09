@@ -77,6 +77,7 @@ std::ostream& operator<<(std::ostream& out, const Tree& tree)
 //Конструктор с параметром для "Узла"
 Tree::Node::Node(int value, Node* parent)
 {
+	depth = 1;
 	Node::value = value;
 	Node::parent = parent;
 	left = nullptr;

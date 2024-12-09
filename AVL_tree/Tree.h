@@ -86,6 +86,7 @@ private:
 	{
 		Node(int value, Node* parent);
 
+		unsigned depth;
 		int value;
 		Node* parent;
 		Node* left;
