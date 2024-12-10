@@ -77,7 +77,7 @@ std::ostream& operator<<(std::ostream& out, const Tree& tree)
 //Конструктор с параметром для "Узла"
 Tree::Node::Node(int value, Node* parent)
 {
-	depth = 1;
+	height = 1;
 	Node::value = value;
 	Node::parent = parent;
 	left = nullptr;
@@ -107,16 +107,16 @@ bool Tree::insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue)
 		isInserted = insertTo(subtreeRoot->right, subtreeRoot, newValue);
 	}
 
-	unsigned leftDepth = (subtreeRoot->left == nullptr) ? 0 : (subtreeRoot->left->depth);
-	unsigned rightDepth = (subtreeRoot->right == nullptr) ? 0 : (subtreeRoot->right->depth);
+	unsigned leftHeight = (subtreeRoot->left == nullptr) ? 0 : (subtreeRoot->left->height);
+	unsigned rightHeight = (subtreeRoot->right == nullptr) ? 0 : (subtreeRoot->right->height);
 
-	if (leftDepth > rightDepth)
+	if (leftHeight > rightHeight)
 	{
-		subtreeRoot->depth = leftDepth + 1;
+		subtreeRoot->height = leftHeight + 1;
 	}
 	else
 	{
-		subtreeRoot->depth = rightDepth + 1;
+		subtreeRoot->height = rightHeight + 1;
 	}
 
 	//newValue == subtreeRoot->value
