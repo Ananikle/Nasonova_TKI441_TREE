@@ -97,18 +97,30 @@ bool Tree::insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue)
 		return true;
 	}
 
+	bool isInserted = false;
 	if (newValue < subtreeRoot->value)
 	{
-		return insertTo(subtreeRoot->left, subtreeRoot ,newValue);
+		isInserted = insertTo(subtreeRoot->left, subtreeRoot ,newValue);
+	}
+	else if (newValue > subtreeRoot->value)
+	{
+		isInserted = insertTo(subtreeRoot->right, subtreeRoot, newValue);
 	}
 
-	if (newValue > subtreeRoot->value)
+	unsigned leftDepth = (subtreeRoot->left == nullptr) ? 0 : (subtreeRoot->left->depth);
+	unsigned rightDepth = (subtreeRoot->right == nullptr) ? 0 : (subtreeRoot->right->depth);
+
+	if (leftDepth > rightDepth)
 	{
-		return insertTo(subtreeRoot->right, subtreeRoot, newValue);
+		subtreeRoot->depth = leftDepth + 1;
+	}
+	else
+	{
+		subtreeRoot->depth = rightDepth + 1;
 	}
 
 	//newValue == subtreeRoot->value
-	return false;
+	return isInserted;
 }
 
 //Рекурсивная функция поиска в поддереве
