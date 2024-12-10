@@ -24,7 +24,7 @@ public:
 	* @brief Конструктор перемещения
 	* @param other дерево, откуда перемещаем
 	*/
-	Tree(Tree&& other);
+	Tree(Tree&& other) noexcept;
 
 	/*
 	* @brief Деструктор
@@ -43,7 +43,7 @@ public:
 	* @param other дерево, откуда перемещаем
 	* @return дерево, куда переместили
 	*/
-	Tree& operator=(Tree&& other);
+	Tree& operator=(Tree&& other) noexcept;
 
 	/*
 	* @brief Вставка элемента в дерево
@@ -58,6 +58,13 @@ public:
 	* @return информацию о том, найден ли элемент
 	*/
 	bool find(int value) const;
+
+	/*
+	* @brief Удаление элемента из дерева
+	* @param value значение для удаления
+	* @return информацию о том, удален ли элемент
+	*/
+	bool remove(int value);
 
 	/*
 	* @brief Приведение дерева к строке
@@ -77,9 +84,15 @@ private:
 	//Вспомогательная структура "Узел"
 	struct Node
 	{
-		Node(int value);
+		//Конструктор с параметрами для "Узла"
+		Node(int value, Node* parent);
 
+		//Пересчитывает высоту на узле
+		void updateHeight();
+
+		unsigned height;
 		int value;
+		Node* parent;
 		Node* left;
 		Node* right;
 	};
@@ -90,10 +103,16 @@ private:
 
 private:
 	//Рекурсивная функция вставки в поддерево
-	static bool insertTo(Node*& subtreeRoot, int newValue);
+	static bool insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue);
 
 	//Рекурсивная функция поиска в поддереве
 	static bool findIn(const Node* subtreeRoot, int valueToFind);
+
+	//Рекурсивная функция печати в поток
+	static void print(const Node* subtreeRoot, std::ostream& out, unsigned lvl);
+
+	//Рекурсивная функция вывода дерева в строку
+	static void putToString(const Node* subtreeRoot, std::string& str);
 
 	//Рекурсивная функция удаления дерева из памяти
 	static void destroyTree(const Node* subtreeRoot);
