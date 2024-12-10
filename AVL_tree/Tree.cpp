@@ -28,6 +28,13 @@ Tree::~Tree()
 //Оператор присваивания с копированием
 Tree& Tree::operator=(const Tree& other)
 {
+	//проверяем не одинаковые ли адреса у this и other
+	if (this != &other)
+	{
+		destroyTree(this->root);
+		//копирование (из other в this)
+	}
+
 	return *this;
 }
 
