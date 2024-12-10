@@ -86,6 +86,9 @@ private:
 	{
 		Node(int value, Node* parent);
 
+		//Пересчитывает высоту на узле
+		void updateHeight();
+
 		unsigned height;
 		int value;
 		Node* parent;

@@ -84,6 +84,24 @@ Tree::Node::Node(int value, Node* parent)
 	right = nullptr;
 }
 
+//Пересчитывает высоту на узле
+void Tree::Node::updateHeight()
+{
+	//находимся в узле (this - это ЭТОТ узел):
+
+	unsigned leftHeight = (this->left == nullptr) ? 0 : (this->left->height);
+	unsigned rightHeight = (this->right == nullptr) ? 0 : (this->right->height);
+
+	if (leftHeight > rightHeight)
+	{
+		this->height = leftHeight + 1;
+	}
+	else
+	{
+		this->height = rightHeight + 1;
+	}
+}
+
 
 
 //Рекурсивная функция вставки в поддерево
@@ -107,17 +125,7 @@ bool Tree::insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue)
 		isInserted = insertTo(subtreeRoot->right, subtreeRoot, newValue);
 	}
 
-	unsigned leftHeight = (subtreeRoot->left == nullptr) ? 0 : (subtreeRoot->left->height);
-	unsigned rightHeight = (subtreeRoot->right == nullptr) ? 0 : (subtreeRoot->right->height);
-
-	if (leftHeight > rightHeight)
-	{
-		subtreeRoot->height = leftHeight + 1;
-	}
-	else
-	{
-		subtreeRoot->height = rightHeight + 1;
-	}
+	 subtreeRoot->updateHeight();
 
 	//newValue == subtreeRoot->value
 	return isInserted;
