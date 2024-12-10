@@ -100,7 +100,7 @@ bool Tree::insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue)
 	bool isInserted = false;
 	if (newValue < subtreeRoot->value)
 	{
-		isInserted = insertTo(subtreeRoot->left, subtreeRoot ,newValue);
+		isInserted = insertTo(subtreeRoot->left, subtreeRoot, newValue);
 	}
 	else if (newValue > subtreeRoot->value)
 	{
@@ -156,12 +156,12 @@ void Tree::print(const Node* subtreeRoot, std::ostream& out, unsigned lvl)
 	}
 
 	print(subtreeRoot->right, out, lvl + 1);
-	
+
 	for (unsigned i = 0; i < lvl; ++i)
 	{
-		out << "    ";
+		out << "      ";
 	}
-	out << subtreeRoot->value << std::endl;
+	out << subtreeRoot->value << "(" << subtreeRoot->height << ")" << std::endl;
 
 	print(subtreeRoot->left, out, lvl + 1);
 }
