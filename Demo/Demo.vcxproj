@@ -129,6 +129,11 @@
   <ItemGroup>
     <ClCompile Include="Demo.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AVL_tree\AVL_tree.vcxproj">
+      <Project>{1badb103-891a-4a57-b32f-df4ef6f32386}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

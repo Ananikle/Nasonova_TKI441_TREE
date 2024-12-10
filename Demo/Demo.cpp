@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <iomanip>
 
-#include "../AVL_tree/Tree.cpp"
+#include "../AVL_tree/Tree.h"
 
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
