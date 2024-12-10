@@ -9,7 +9,7 @@ Tree::Tree() : root(nullptr)
 //Конструктор копирования
 Tree::Tree(const Tree& other)
 {
-
+	//копирование (из other в this)
 }
 
 //Конструктор перемещения
