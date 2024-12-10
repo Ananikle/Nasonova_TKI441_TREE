@@ -74,7 +74,7 @@ std::ostream& operator<<(std::ostream& out, const Tree& tree)
 
 
 
-//Конструктор с параметром для "Узла"
+//Конструктор с параметрами для "Узла"
 Tree::Node::Node(int value, Node* parent)
 {
 	height = 1;
