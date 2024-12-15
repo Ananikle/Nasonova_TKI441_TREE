@@ -15,62 +15,61 @@ int main()
 
 
 		std::cout << "Options:" << std::endl;
-		std::cout << "i - insert" << std::endl;
-		std::cout << "f - find" << std::endl;
-		std::cout << "d - delete" << std::endl;
+		std::cout << "i <number> - insert number to the tree" << std::endl;
+		std::cout << "f <number> - find number in the tree" << std::endl;
+		std::cout << "d <number> - delete number from the tree" << std::endl;
+		std::cout << "p - print" << std::endl;
 		std::cout << "e - exit" << std::endl;
 		std::cout << std::endl;
-		char choice;
 
+		char choice;
+		std::cout << "Input:" << std::endl;
 		do
 		{
-			std::cout << "TREE:" << std::endl;
-			std::cout << t << std::endl;
-			std::cout << "[" << t.toString() << "]" << std::endl;
-
-			std::cout << "Choose your next move: ";
 			std::cin >> choice;
 
 			int number;
 			switch (choice)
 			{
 			case 'i':
-				std::cout << "Enter number:" << std::endl;
 				std::cin >> number;
-				std::cout << "Insert: " << (t.insert(number) ? "SUCCEED" : "FAILED") << std::endl;
+				std::cout << std::setw(6) << std::left << "Insert";
+				std::cout << std::setw(4) << std::right << number;
+				std::cout << std::left << ": " << (t.insert(number) ? "SUCCEED" : "FAILED") << std::endl;
 				break;
-			case 'f':
-				std::cout << "Enter number:" << std::endl;
-				std::cin >> number;
-				std::cout << "Find: " << (t.find(number) ? "FOUND" : "NOT FOUND") << std::endl;
 
-				break;
-			case 'd':
-				std::cout << "Enter number:" << std::endl;
+			case 'f':
 				std::cin >> number;
-				std::cout << "Delete: " << (t.remove(number) ? "SUCCEED" : "FAILED") << std::endl;
+				std::cout << std::setw(6) << std::left << "Find";
+				std::cout << std::setw(4) << std::right << number;
+				std::cout << std::left << ": " << (t.find(number) ? "FOUND" : "NOT FOUND") << std::endl;
+				break;
+
+			case 'd':
+				std::cin >> number;
+				std::cout << std::setw(6) << std::left << "Delete";
+				std::cout << std::setw(4) << std::right << number; 
+				std::cout << std::left << ": "<< (t.remove(number) ? "SUCCEED" : "FAILED") << std::endl;
+				break;
+
+			case 'p':
+				std::cout << t << std::endl;
+				std::cout << "[" << t.toString() << "]" << std::endl;
 				break;
 
 			case 'e':
-
 				break;
+
 			default:
 				std::cout << "INVALID INPUT!\a" << std::endl;
 			}
-
-			std::cout << std::endl;
-			for (int i = 0; i < 20; ++i)
-			{
-				std::cout << "-";
-			}
-			std::cout << std::endl;
 
 		} while (choice != 'e');
 
 
 	}
 	//дерево перестало "жить"
-	
+
 	//Функция проверки утечки памяти (результат смотреть в MS VS в "Вывод", рядом со "Список ошибок")
 	_CrtDumpMemoryLeaks();
 
