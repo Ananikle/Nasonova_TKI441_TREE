@@ -114,6 +114,9 @@ private:
 	//Рекурсивная функция вывода дерева в строку
 	static void putToString(const Node* subtreeRoot, std::string& str);
 
+	//Рекурсивная функция копирования дерева
+	static void copyTree(Node*& subtreeRootTo, Node* subtreeParent, const Node* subtreeRootFrom);
+
 	//Рекурсивная функция удаления дерева из памяти
 	static void destroyTree(const Node* subtreeRoot);
 };

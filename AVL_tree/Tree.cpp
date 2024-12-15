@@ -9,7 +9,7 @@ Tree::Tree() : root(nullptr)
 //Конструктор копирования
 Tree::Tree(const Tree& other)
 {
-	//копирование (из other в this)
+	copyTree(this->root, nullptr, other.root);
 }
 
 //Конструктор перемещения
@@ -32,7 +32,7 @@ Tree& Tree::operator=(const Tree& other)
 	if (this != &other)
 	{
 		destroyTree(this->root);
-		//копирование (из other в this)
+		copyTree(this->root, nullptr, other.root);
 	}
 
 	return *this;
@@ -132,7 +132,7 @@ bool Tree::insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue)
 		isInserted = insertTo(subtreeRoot->right, subtreeRoot, newValue);
 	}
 
-	 subtreeRoot->updateHeight();
+	subtreeRoot->updateHeight();
 
 	//newValue == subtreeRoot->value
 	return isInserted;
@@ -193,6 +193,22 @@ void Tree::putToString(const Node* subtreeRoot, std::string& str)
 	str += std::to_string(subtreeRoot->value);
 	str += " ";
 	putToString(subtreeRoot->right, str);
+}
+
+//Рекурсивная функция копирования дерева
+void Tree::copyTree(Node*& subtreeRootTo, Node* subtreeParent, const Node* subtreeRootFrom)
+{
+	//если нет узла для создания клона
+	if (subtreeRootFrom == nullptr)
+	{
+		subtreeRootTo = nullptr;
+		return;
+	}
+
+	subtreeRootTo = new Node(subtreeRootFrom->value, subtreeParent);
+	subtreeRootTo->height = subtreeRootFrom->height;
+	copyTree(subtreeRootTo->left, subtreeRootTo, subtreeRootFrom->left);
+	copyTree(subtreeRootTo->right, subtreeRootTo, subtreeRootFrom->right);
 }
 
 
