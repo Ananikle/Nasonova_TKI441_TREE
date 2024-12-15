@@ -108,6 +108,15 @@ private:
 	//Рекурсивная функция поиска в поддереве
 	static bool findIn(const Node* subtreeRoot, int valueToFind);
 
+	//Рекурсивная функция удаления элемента в поддереве
+	static bool deleteIn(Node*& subtreeRoot, int valueToDelete);
+
+	//Функция удаления узла из дерева
+	static void deleteNode(Tree::Node*& nodeToDelete);
+
+	//Рекурсивная функция поиска минимумального (наиболее левого) узла
+	static Node*& getMinIn(Node*& subtreeRoot);
+
 	//Рекурсивная функция печати в поток
 	static void print(const Node* subtreeRoot, std::ostream& out, unsigned lvl);
 

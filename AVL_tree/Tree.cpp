@@ -171,6 +171,80 @@ bool Tree::findIn(const Node* subtreeRoot, int valueToFind)
 	return true;
 }
 
+//Рекурсивная функция удаления элемента в поддереве
+//subtreeRoot - корень поддерева, в котором ищем элемент
+bool Tree::deleteIn(Node*& subtreeRoot, int valueToDelete)
+{
+	//Если нет узла в поддереве
+	if (subtreeRoot == nullptr)
+	{
+		return false;
+	}
+
+	if (valueToDelete == subtreeRoot->value)
+	{
+		deleteNode(subtreeRoot);
+		return true;
+	}
+
+	bool isDeleted = false;
+	if (valueToDelete < subtreeRoot->value)
+	{
+		isDeleted = deleteIn(subtreeRoot->left, valueToDelete);
+	}
+	else if (valueToDelete > subtreeRoot->value)
+	{
+		isDeleted = deleteIn(subtreeRoot->right, valueToDelete);
+	}
+	
+	if (isDeleted)
+	{
+		subtreeRoot->updateHeight();
+	}
+
+	return isDeleted;
+}
+
+//Функция удаления узла из дерева
+//linkToNode - ссылка(!) на удаляемый узел дерева
+void Tree::deleteNode(Node*& linkToNode)
+{
+	Node* parent = linkToNode->parent;
+
+	if (linkToNode->left == nullptr && linkToNode->right == nullptr)
+	{
+		//удаление узла без детей
+		delete linkToNode;
+		linkToNode = nullptr;
+		return;
+	}
+
+	if (linkToNode->left != nullptr && linkToNode->right != nullptr)
+	{
+		//удаление узла с двумя детьми
+		//ищем наименьший элемент в правом дереве
+		Node*& min = getMinIn(linkToNode->right);
+		std::swap(min->value, linkToNode->value);
+		deleteNode(min);
+
+		return;
+	}
+
+	//удаление узла с одним ребёнком
+	linkToNode = (linkToNode->left != nullptr) ? linkToNode->left : linkToNode->right;
+}
+
+//Рекурсивная функция поиска минимумального (наиболее левого) узла
+Tree::Node*& Tree::getMinIn(Node*& subtreeRoot)
+{
+	if (subtreeRoot->left == nullptr)
+	{
+		return subtreeRoot;
+	}
+
+	return getMinIn(subtreeRoot->left);
+}
+
 //Рекурсивная функция печати в поток
 void Tree::print(const Node* subtreeRoot, std::ostream& out, unsigned lvl)
 {
