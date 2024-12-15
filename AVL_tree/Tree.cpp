@@ -69,7 +69,7 @@ bool Tree::find(int value) const
 //Удаление элемента из дерева
 bool Tree::remove(int value)
 {
-	return false;
+	return deleteIn(root, value);
 }
 
 //Получение строкового представления дерева
