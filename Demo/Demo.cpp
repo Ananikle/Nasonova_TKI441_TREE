@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <iomanip>
 
-#include "../AVL_tree/Tree.cpp"
+#include "../AVL_tree/Tree.h"
 
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
@@ -33,6 +33,10 @@ int main()
 			std::cout << std::setw(4) << (t.find(i) ? "yes" : "-") << "|";
 		}
 		std::cout << std::endl;
+
+		std::cout << t << std::endl;
+
+		std::cout << t.toString() << std::endl;
 	}
 	//дерево перестало "жить"
 	
