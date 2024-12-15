@@ -72,12 +72,15 @@ bool Tree::remove(int value)
 	return false;
 }
 
-//Получение строкового предстваления дерева
+//Получение строкового представления дерева
 std::string Tree::toString() const
 {
 	std::string result;
 	putToString(root, result);
-	result.pop_back();
+	if (!result.empty())
+	{
+		result.pop_back();
+	}
 	return result;
 }
 
