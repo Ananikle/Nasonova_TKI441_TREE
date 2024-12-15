@@ -213,11 +213,12 @@ bool Tree::deleteIn(Node*& subtreeRoot, int valueToDelete)
 void Tree::deleteNode(Node*& linkToNode)
 {
 	Node* parent = linkToNode->parent;
+	Node* nodeToDelete = linkToNode;
 
 	if (linkToNode->left == nullptr && linkToNode->right == nullptr)
 	{
 		//удаление узла без детей
-		delete linkToNode;
+		delete nodeToDelete;
 		linkToNode = nullptr;
 		return;
 	}
@@ -235,6 +236,8 @@ void Tree::deleteNode(Node*& linkToNode)
 
 	//удаление узла с одним ребёнком
 	linkToNode = (linkToNode->left != nullptr) ? linkToNode->left : linkToNode->right;
+	linkToNode->parent = parent;
+	delete nodeToDelete;
 }
 
 //Рекурсивная функция поиска минимумального (наиболее левого) узла
