@@ -123,6 +123,38 @@ void Tree::Node::updateHeight()
 
 
 
+//Левый поворот
+void Tree::leftRotate(Node* a)
+{
+	Node* b = a->right;
+
+	//Узел a забирает правого ребёнка у b
+	a->right = b->left;
+	if (a->left != nullptr)
+	{
+		a->left->parent = a;
+	}
+
+	//Узел b забирает родителя a
+	b->parent = a->parent;
+	if (b->parent == nullptr)
+	{
+		root = b;
+	}
+	else
+	{
+		(a->parent->right == a ? b->parent->right: b->parent->left) = b;
+	}
+
+	//Узел a становится левым ребёнком b
+	b->left = a;
+	a->parent = b;
+
+	//Пересчёт высот для a и b
+	a->updateHeight();
+	b->updateHeight();
+}
+
 //Рекурсивная функция вставки в поддерево
 //subtreeRoot - корень поддерева, в которое вставляем новый элемент
 bool Tree::insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue)
@@ -199,7 +231,7 @@ bool Tree::deleteIn(Node*& subtreeRoot, int valueToDelete)
 	{
 		isDeleted = deleteIn(subtreeRoot->right, valueToDelete);
 	}
-	
+
 	if (isDeleted)
 	{
 		subtreeRoot->updateHeight();

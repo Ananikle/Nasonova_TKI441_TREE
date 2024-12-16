@@ -102,6 +102,12 @@ private:
 	Node* root;
 
 private:
+	//Функции для AVL-балансировки
+
+	//Левый поворот
+	void leftRotate(Node* a);
+
+private:
 	//Рекурсивная функция вставки в поддерево
 	static bool insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue);
 
