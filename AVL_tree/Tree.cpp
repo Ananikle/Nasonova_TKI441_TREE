@@ -124,7 +124,10 @@ void Tree::Node::updateHeight()
 //Рассчёт фактора балансировки
 int Tree::Node::getBalanceFactor() const
 {
-	return (this->left->height - this->right->height);
+	unsigned leftHeight = (this->left == nullptr) ? 0 : (this->left->height);
+	unsigned rightHeight = (this->right == nullptr) ? 0 : (this->right->height);
+
+	return (leftHeight - rightHeight);
 }
 
 
