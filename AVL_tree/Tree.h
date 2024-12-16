@@ -110,6 +110,12 @@ private:
 	//Правый поворот
 	void rightRotate(Node* a);
 
+	//Правый-левый поворот
+	void rightLeftRotate(Node* a);
+
+	//Левый-правый поворот
+	void leftRightRotate(Node* a);
+
 private:
 	//Рекурсивная функция вставки в поддерево
 	static bool insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue);

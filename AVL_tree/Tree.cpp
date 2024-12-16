@@ -187,6 +187,20 @@ void Tree::rightRotate(Node* a)
 	b->updateHeight();
 }
 
+//Правый-левый поворот
+void Tree::rightLeftRotate(Node* a)
+{
+	rightRotate(a->right);
+	leftRotate(a);
+}
+
+//Левый-правый поворот
+void Tree::leftRightRotate(Node* a)
+{
+	leftRotate(a->left);
+	rightRotate(a);
+}
+
 //Рекурсивная функция вставки в поддерево
 //subtreeRoot - корень поддерева, в которое вставляем новый элемент
 bool Tree::insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue)
