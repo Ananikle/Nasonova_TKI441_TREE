@@ -124,13 +124,13 @@ private:
 
 private:
 	//Рекурсивная функция вставки в поддерево
-	static bool insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue);
+	bool insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue);
 
 	//Рекурсивная функция поиска в поддереве
 	static bool findIn(const Node* subtreeRoot, int valueToFind);
 
 	//Рекурсивная функция удаления элемента в поддереве
-	static bool deleteIn(Node*& subtreeRoot, int valueToDelete);
+	bool deleteIn(Node*& subtreeRoot, int valueToDelete);
 
 	//Функция удаления узла из дерева
 	static void deleteNode(Tree::Node*& nodeToDelete);
