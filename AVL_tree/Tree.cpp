@@ -121,6 +121,12 @@ void Tree::Node::updateHeight()
 	}
 }
 
+//Рассчёт фактора балансировки
+int Tree::Node::getBalanceFactor() const
+{
+	return (this->left->height - this->right->height);
+}
+
 
 
 //Левый поворот
@@ -201,6 +207,35 @@ void Tree::leftRightRotate(Node* a)
 	rightRotate(a);
 }
 
+//Балансировка поддерева
+void Tree::balanceSubtree(Node* subtreeRoot)
+{
+	int balanceFactor = subtreeRoot->getBalanceFactor();
+
+	if (balanceFactor == -2)
+	{
+		if (subtreeRoot->right->left == nullptr)
+		{
+			leftRotate(subtreeRoot);
+		}
+		else
+		{
+			rightLeftRotate(subtreeRoot);
+		}
+	}
+	else if (balanceFactor == +2)
+	{
+		if (subtreeRoot->left->right == nullptr)
+		{
+			rightRotate(subtreeRoot);
+		}
+		else
+		{
+			leftRightRotate(subtreeRoot);
+		}
+	}
+}
+
 //Рекурсивная функция вставки в поддерево
 //subtreeRoot - корень поддерева, в которое вставляем новый элемент
 bool Tree::insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue)
@@ -222,7 +257,11 @@ bool Tree::insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue)
 		isInserted = insertTo(subtreeRoot->right, subtreeRoot, newValue);
 	}
 
-	subtreeRoot->updateHeight();
+	if (isInserted)
+	{
+		subtreeRoot->updateHeight();
+		balanceSubtree(subtreeRoot);
+	}
 
 	//newValue == subtreeRoot->value
 	return isInserted;
@@ -281,6 +320,7 @@ bool Tree::deleteIn(Node*& subtreeRoot, int valueToDelete)
 	if (isDeleted)
 	{
 		subtreeRoot->updateHeight();
+		balanceSubtree(subtreeRoot);
 	}
 
 	return isDeleted;

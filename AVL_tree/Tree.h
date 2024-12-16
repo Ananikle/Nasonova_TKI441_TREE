@@ -90,6 +90,9 @@ private:
 		//Пересчитывает высоту на узле
 		void updateHeight();
 
+		//Рассчёт фактора балансировки
+		int getBalanceFactor() const;
+
 		unsigned height;
 		int value;
 		Node* parent;
@@ -115,6 +118,9 @@ private:
 
 	//Левый-правый поворот
 	void leftRightRotate(Node* a);
+
+	//Балансировка поддерева
+	void balanceSubtree(Node* subtreeRoot);
 
 private:
 	//Рекурсивная функция вставки в поддерево
