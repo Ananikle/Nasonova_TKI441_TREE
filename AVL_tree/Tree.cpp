@@ -128,11 +128,11 @@ void Tree::leftRotate(Node* a)
 {
 	Node* b = a->right;
 
-	//Узел a забирает правого ребёнка у b
+	//Узел a забирает левого ребёнка у b
 	a->right = b->left;
-	if (a->left != nullptr)
+	if (a->right!= nullptr)
 	{
-		a->left->parent = a;
+		a->right->parent = a;
 	}
 
 	//Узел b забирает родителя a
@@ -151,6 +151,38 @@ void Tree::leftRotate(Node* a)
 	a->parent = b;
 
 	//Пересчёт высот для a и b
+	a->updateHeight();
+	b->updateHeight();
+}
+
+//Правый поворот
+void Tree::rightRotate(Node* a)
+{
+	Node* b = a->left;
+
+	//Узел а забирает правого ребенка у b
+	a->left = b->right;
+	if (a->left != nullptr)
+	{
+		a->left->parent = a;
+	}
+
+	//Узел b забирает родителя а
+	b->parent = a->parent;
+	if (b->parent == nullptr)
+	{
+		root = b;
+	}
+	else
+	{
+		(a->parent->left == a ? b->parent->left : b->parent->right) = b;
+	}
+
+	//узел а становится правым ребенком
+	b->right = a;
+	a->parent = b;
+
+	//Пересчет высот 
 	a->updateHeight();
 	b->updateHeight();
 }
