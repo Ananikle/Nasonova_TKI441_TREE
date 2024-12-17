@@ -111,7 +111,7 @@ typename Tree<T>::Iterator Tree<T>::begin() const
 		return Iterator();
 	}
 
-	return Iterator();
+	return Iterator(root->getTheMostLeft());
 }
 
 //Получение итератора на элемент, следующий за последним
