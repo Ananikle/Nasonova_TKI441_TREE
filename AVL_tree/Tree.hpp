@@ -96,9 +96,9 @@ std::string Tree<T>::toString() const
 
 //Печать структуры дерева
 template<typename T>
-void Tree<T>::printAsTree(std::ostream& out, const Tree& tree) const
+void Tree<T>::printAsTree(std::ostream& out) const
 {
-	(tree.root, out, 0);
+	(root, out, 0);
 }
 
 //Получение итератора на первый элемент
