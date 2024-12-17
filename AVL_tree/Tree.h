@@ -227,7 +227,7 @@ private:
 		* @param int фиктивное значение
 		* @return итератор на предыдущую позицию
 		*/
-		Iterator& operator++(int);
+		Iterator operator++(int);
 
 		/*
 		* @brief Сдвиг итератора назад
@@ -240,7 +240,7 @@ private:
 		* @param int фиктивное значение
 		* @return итератор на предыдущую позицию
 		*/
-		Iterator& operator--(int);
+		Iterator operator--(int);
 
 		/*
 		* @brief Разыменование

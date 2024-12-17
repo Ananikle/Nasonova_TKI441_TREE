@@ -626,7 +626,7 @@ typename Tree<T>::Iterator& Tree<T>::Iterator::operator++()
 
 //Перегрузка оператора инкремента (постфиксного)
 template<typename T>
-typename Tree<T>::Iterator& Tree<T>::Iterator::operator++(int)
+typename Tree<T>::Iterator Tree<T>::Iterator::operator++(int)
 {
 	Iterator copy = *this;
 
@@ -695,7 +695,7 @@ typename Tree<T>::Iterator& Tree<T>::Iterator::operator--()
 
 //Перегрузка оператора декремента (постфиксного)
 template<typename T>
-typename Tree<T>::Iterator& Tree<T>::Iterator::operator--(int)
+typename Tree<T>::Iterator Tree<T>::Iterator::operator--(int)
 {
 	Iterator copy = *this;
 
