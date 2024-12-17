@@ -4,8 +4,9 @@
 #include <iostream>
 
 /**
-* @brief Класс "АВЛ-Дерево"
+* @brief Шаблонный класс "АВЛ-Дерево"
 */
+template<typename T>
 class Tree
 {
 public:
@@ -50,21 +51,21 @@ public:
 	* @param value значение для вставки
 	* @return информацию о том, найден ли элемент
 	*/
-	bool insert(int value);
+	bool insert(T value);
 
 	/*
 	* @brief Поиск элемента в дереве
 	* @param value значение для вставки
 	* @return информацию о том, найден ли элемент
 	*/
-	bool find(int value) const;
+	bool find(T value) const;
 
 	/*
 	* @brief Удаление элемента из дерева
 	* @param value значение для удаления
 	* @return информацию о том, удален ли элемент
 	*/
-	bool remove(int value);
+	bool remove(T value);
 
 	/*
 	* @brief Приведение дерева к строке
@@ -85,7 +86,7 @@ private:
 	struct Node
 	{
 		//Конструктор с параметрами для "Узла"
-		Node(int value, Node* parent);
+		Node(T value, Node* parent);
 
 		//Пересчитывает высоту на узле
 		void updateHeight();
@@ -93,8 +94,8 @@ private:
 		//Рассчёт фактора балансировки
 		int getBalanceFactor() const;
 
-		unsigned height;
-		int value;
+		int height;
+		T value;
 		Node* parent;
 		Node* left;
 		Node* right;
@@ -124,13 +125,13 @@ private:
 
 private:
 	//Рекурсивная функция вставки в поддерево
-	bool insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue);
+	bool insertTo(Node*& subtreeRoot, Node* subtreeParent, T newValue);
 
 	//Рекурсивная функция поиска в поддереве
-	static bool findIn(const Node* subtreeRoot, int valueToFind);
+	static bool findIn(const Node* subtreeRoot, T valueToFind);
 
 	//Рекурсивная функция удаления элемента в поддереве
-	bool deleteIn(Node*& subtreeRoot, int valueToDelete);
+	bool deleteIn(Node*& subtreeRoot, T valueToDelete);
 
 	//Функция удаления узла из дерева
 	static void deleteNode(Tree::Node*& nodeToDelete);
@@ -139,7 +140,7 @@ private:
 	static Node*& getMinIn(Node*& subtreeRoot);
 
 	//Рекурсивная функция печати в поток
-	static void print(const Node* subtreeRoot, std::ostream& out, unsigned lvl);
+	static void print(const Node* subtreeRoot, std::ostream& out, int lvl);
 
 	//Рекурсивная функция вывода дерева в строку
 	static void putToString(const Node* subtreeRoot, std::string& str);

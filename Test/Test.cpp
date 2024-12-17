@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
-#include "../AVL_tree/Tree.h"
+#include "../AVL_tree/Tree.hpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

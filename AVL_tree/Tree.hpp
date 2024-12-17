@@ -1,33 +1,38 @@
 ﻿#include "Tree.h"
 
 //Конструктор по умолчанию для "Дерева"
-Tree::Tree() : root(nullptr)
+template<typename T>
+Tree<T>::Tree() : root(nullptr)
 {
 
 }
 
 //Конструктор копирования
-Tree::Tree(const Tree& other)
+template<typename T>
+Tree<T>::Tree(const Tree& other)
 {
 	copyTree(this->root, nullptr, other.root);
 }
 
 //Конструктор перемещения
-Tree::Tree(Tree&& other) noexcept
+template<typename T>
+Tree<T>::Tree(Tree&& other) noexcept
 {
 	this->root = other.root;
 	other.root = nullptr;
 }
 
 //Деструктор
-Tree::~Tree()
+template<typename T>
+Tree<T>::~Tree()
 {
 	destroyTree(root);
 	root = nullptr;
 }
 
 //Оператор присваивания с копированием
-Tree& Tree::operator=(const Tree& other)
+template<typename T>
+Tree<T>& Tree<T>::operator=(const Tree<T>& other)
 {
 	//проверяем не одинаковые ли адреса у this и other
 	if (this != &other)
@@ -40,7 +45,8 @@ Tree& Tree::operator=(const Tree& other)
 }
 
 //Оператор присваивания с перемещением
-Tree& Tree::operator=(Tree&& other) noexcept
+template<typename T>
+Tree<T>& Tree<T>::operator=(Tree<T>&& other) noexcept
 {
 	//проверяем не одинаковые ли адреса у this и other
 	if (this != &other)
@@ -54,26 +60,30 @@ Tree& Tree::operator=(Tree&& other) noexcept
 }
 
 //Вставка элемента в дерево
-bool Tree::insert(int value)
+template<typename T>
+bool Tree<T>::insert(T value)
 {
 	return insertTo(root, nullptr, value);
 }
 
 //Поиск элемента в дереве
-bool Tree::find(int value) const
+template<typename T>
+bool Tree<T>::find(T value) const
 {
 	root->value;
 	return findIn(root, value);
 }
 
 //Удаление элемента из дерева
-bool Tree::remove(int value)
+template<typename T>
+bool Tree<T>::remove(T value)
 {
 	return deleteIn(root, value);
 }
 
 //Получение строкового представления дерева
-std::string Tree::toString() const
+template<typename T>
+std::string Tree<T>::toString() const
 {
 	std::string result;
 	putToString(root, result);
@@ -85,16 +95,18 @@ std::string Tree::toString() const
 }
 
 //Оператор вывода в поток
-std::ostream& operator<<(std::ostream& out, const Tree& tree)
+template<typename T>
+std::ostream& operator<<(std::ostream& out, const Tree<T>& tree)
 {
-	Tree::print(tree.root, out, 0);
+	Tree<T>::print(tree.root, out, 0);
 	return out;
 }
 
 
 
 //Конструктор с параметрами для "Узла"
-Tree::Node::Node(int value, Node* parent)
+template<typename T>
+Tree<T>::Node::Node(T value, Node* parent)
 {
 	height = 1;
 	Node::value = value;
@@ -104,12 +116,13 @@ Tree::Node::Node(int value, Node* parent)
 }
 
 //Пересчитывает высоту на узле
-void Tree::Node::updateHeight()
+template<typename T>
+void Tree<T>::Node::updateHeight()
 {
 	//находимся в узле (this - это ЭТОТ узел):
 
-	unsigned leftHeight = (this->left == nullptr) ? 0 : (this->left->height);
-	unsigned rightHeight = (this->right == nullptr) ? 0 : (this->right->height);
+	int leftHeight = (this->left == nullptr) ? 0 : (this->left->height);
+	int rightHeight = (this->right == nullptr) ? 0 : (this->right->height);
 
 	if (leftHeight > rightHeight)
 	{
@@ -122,10 +135,11 @@ void Tree::Node::updateHeight()
 }
 
 //Рассчёт фактора балансировки
-int Tree::Node::getBalanceFactor() const
+template<typename T>
+int Tree<T>::Node::getBalanceFactor() const
 {
-	unsigned leftHeight = (this->left == nullptr) ? 0 : (this->left->height);
-	unsigned rightHeight = (this->right == nullptr) ? 0 : (this->right->height);
+	int leftHeight = (this->left == nullptr) ? 0 : (this->left->height);
+	int rightHeight = (this->right == nullptr) ? 0 : (this->right->height);
 
 	return (leftHeight - rightHeight);
 }
@@ -133,7 +147,8 @@ int Tree::Node::getBalanceFactor() const
 
 
 //Левый поворот
-void Tree::leftRotate(Node* a)
+template<typename T>
+void Tree<T>::leftRotate(Node* a)
 {
 	Node* b = a->right;
 
@@ -165,7 +180,8 @@ void Tree::leftRotate(Node* a)
 }
 
 //Правый поворот
-void Tree::rightRotate(Node* a)
+template<typename T>
+void Tree<T>::rightRotate(Node* a)
 {
 	Node* b = a->left;
 
@@ -197,21 +213,24 @@ void Tree::rightRotate(Node* a)
 }
 
 //Правый-левый поворот
-void Tree::rightLeftRotate(Node* a)
+template<typename T>
+void Tree<T>::rightLeftRotate(Node* a)
 {
 	rightRotate(a->right);
 	leftRotate(a);
 }
 
 //Левый-правый поворот
-void Tree::leftRightRotate(Node* a)
+template<typename T>
+void Tree<T>::leftRightRotate(Node* a)
 {
 	leftRotate(a->left);
 	rightRotate(a);
 }
 
 //Балансировка поддерева
-void Tree::balanceSubtree(Node* subtreeRoot)
+template<typename T>
+void Tree<T>::balanceSubtree(Node* subtreeRoot)
 {
 	int balanceFactor = subtreeRoot->getBalanceFactor();
 
@@ -241,7 +260,8 @@ void Tree::balanceSubtree(Node* subtreeRoot)
 
 //Рекурсивная функция вставки в поддерево
 //subtreeRoot - корень поддерева, в которое вставляем новый элемент
-bool Tree::insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue)
+template<typename T>
+bool Tree<T>::insertTo(Node*& subtreeRoot, Node* subtreeParent, T newValue)
 {
 	//найдено место для вставки
 	if (subtreeRoot == nullptr)
@@ -272,7 +292,8 @@ bool Tree::insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue)
 
 //Рекурсивная функция поиска в поддереве
 //subtreeRoot - корень поддерева, в котором ищем элемент
-bool Tree::findIn(const Node* subtreeRoot, int valueToFind)
+template<typename T>
+bool Tree<T>::findIn(const Node* subtreeRoot, T valueToFind)
 {
 	//Если нет узла в поддереве
 	if (subtreeRoot == nullptr)
@@ -296,7 +317,8 @@ bool Tree::findIn(const Node* subtreeRoot, int valueToFind)
 
 //Рекурсивная функция удаления элемента в поддереве
 //subtreeRoot - корень поддерева, в котором ищем элемент
-bool Tree::deleteIn(Node*& subtreeRoot, int valueToDelete)
+template<typename T>
+bool Tree<T>::deleteIn(Node*& subtreeRoot, T valueToDelete)
 {
 	//Если нет узла в поддереве
 	if (subtreeRoot == nullptr)
@@ -331,7 +353,8 @@ bool Tree::deleteIn(Node*& subtreeRoot, int valueToDelete)
 
 //Функция удаления узла из дерева
 //linkToNode - ссылка(!) на удаляемый узел дерева
-void Tree::deleteNode(Node*& linkToNode)
+template<typename T>
+void Tree<T>::deleteNode(Node*& linkToNode)
 {
 	Node* parent = linkToNode->parent;
 	Node* nodeToDelete = linkToNode;
@@ -362,7 +385,8 @@ void Tree::deleteNode(Node*& linkToNode)
 }
 
 //Рекурсивная функция поиска минимумального (наиболее левого) узла
-Tree::Node*& Tree::getMinIn(Node*& subtreeRoot)
+template<typename T>
+Tree<T>::Node*& Tree<T>::getMinIn(Node*& subtreeRoot)
 {
 	if (subtreeRoot->left == nullptr)
 	{
@@ -373,7 +397,8 @@ Tree::Node*& Tree::getMinIn(Node*& subtreeRoot)
 }
 
 //Рекурсивная функция печати в поток
-void Tree::print(const Node* subtreeRoot, std::ostream& out, unsigned lvl)
+template<typename T>
+void Tree<T>::print(const Node* subtreeRoot, std::ostream& out, int lvl)
 {
 	if (subtreeRoot == nullptr)
 	{
@@ -382,7 +407,7 @@ void Tree::print(const Node* subtreeRoot, std::ostream& out, unsigned lvl)
 
 	print(subtreeRoot->right, out, lvl + 1);
 
-	for (unsigned i = 0; i < lvl; ++i)
+	for (int i = 0; i < lvl; ++i)
 	{
 		out << "      ";
 	}
@@ -392,7 +417,8 @@ void Tree::print(const Node* subtreeRoot, std::ostream& out, unsigned lvl)
 }
 
 //Рекурсивная функция вывода дерева в строку
-void Tree::putToString(const Node* subtreeRoot, std::string& str)
+template<typename T>
+void Tree<T>::putToString(const Node* subtreeRoot, std::string& str)
 {
 	if (subtreeRoot == nullptr)
 	{
@@ -406,7 +432,8 @@ void Tree::putToString(const Node* subtreeRoot, std::string& str)
 }
 
 //Рекурсивная функция копирования дерева
-void Tree::copyTree(Node*& subtreeRootTo, Node* subtreeParent, const Node* subtreeRootFrom)
+template<typename T>
+void Tree<T>::copyTree(Node*& subtreeRootTo, Node* subtreeParent, const Node* subtreeRootFrom)
 {
 	//если нет узла для создания клона
 	if (subtreeRootFrom == nullptr)
@@ -423,7 +450,8 @@ void Tree::copyTree(Node*& subtreeRootTo, Node* subtreeParent, const Node* subtr
 
 
 //Рекурсивная функция удаления дерева из памяти
-void Tree::destroyTree(const Node* subtreeRoot)
+template<typename T>
+void Tree<T>::destroyTree(const Node* subtreeRoot)
 {
 	if (subtreeRoot == nullptr)
 	{

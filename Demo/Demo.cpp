@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <iomanip>
 
-#include "../AVL_tree/Tree.h"
+#include "../AVL_tree/Tree.hpp"
 
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
@@ -11,7 +11,7 @@ int main()
 {
 	//Блок, в котором "живёт" дерево
 	{
-		Tree t;
+		Tree<int> t;
 
 
 		std::cout << "Options:" << std::endl;
