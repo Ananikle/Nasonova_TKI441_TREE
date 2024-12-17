@@ -94,12 +94,11 @@ std::string Tree<T>::toString() const
 	return result;
 }
 
-//Оператор вывода в поток
+//Печать структуры дерева
 template<typename U>
-std::ostream& operator<<(std::ostream& out, const Tree<U>& tree)
+void printAsTree(std::ostream& out, const Tree<U>& tree)
 {
 	Tree<U>::print(tree.root, out, 0);
-	return out;
 }
 
 //Получение итератора на первый элемент

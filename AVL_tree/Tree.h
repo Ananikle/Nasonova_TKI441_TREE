@@ -79,13 +79,12 @@ public:
 	std::string toString() const;
 
 	/*
-	* @brief Вывод дерева в поток
+	* @brief Печать структуры дерева
 	* @param out поток вывода
 	* @param tree дерево
-	* @return поток вывода для конвейерной работы
 	*/
-	template <typename U>
-	friend std::ostream& operator<<(std::ostream& out, const Tree<U>& tree);
+	template<typename U>
+	void printAsTree(std::ostream& out, const Tree<U>& tree);
 
 	/*
 	* @brief Получение итератора на первый элемент
