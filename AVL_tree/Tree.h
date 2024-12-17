@@ -162,6 +162,12 @@ private:
 		//Рассчёт фактора балансировки
 		int getBalanceFactor() const;
 
+		//Получение самого левого потомка
+		const Node* getTheMostLeft() const;
+
+		//Получение самого правого потомка
+		const Node* getTheMostRight() const;
+
 		int height;
 		T value;
 		Node* parent;

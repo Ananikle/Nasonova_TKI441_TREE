@@ -482,6 +482,34 @@ int Tree<T>::Node::getBalanceFactor() const
 	return (leftHeight - rightHeight);
 }
 
+//Получение самого левого потомка
+template<typename T>
+typename const Tree<T>::Node* Tree<T>::Node::getTheMostLeft() const
+{
+	const Node* ptr = this;
+
+	while (ptr->left != nullptr)
+	{
+		ptr = ptr->left;
+	}
+
+	return ptr;
+}
+
+//Получение самого правого потомка
+template<typename T>
+typename const Tree<T>::Node* Tree<T>::Node::getTheMostRight() const
+{
+	const Node* ptr = this;
+
+	while (ptr->right != nullptr)
+	{
+		ptr = ptr->right;
+	}
+
+	return ptr;
+}
+
 
 
 //Конструктор по умолчанию для пустого итератора
@@ -512,12 +540,7 @@ typename Tree<T>::Iterator& Tree<T>::Iterator::operator++()
 	if (element->right != nullptr)
 	{
 		//Ищем самый левый справа
-		element = element->right;
-
-		while (element->left != nullptr)
-		{
-			element = element->left;
-		}
+		element = element->right->getTheMostLeft();
 
 		return *this;
 	}
