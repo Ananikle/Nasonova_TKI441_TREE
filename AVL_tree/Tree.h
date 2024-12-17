@@ -79,7 +79,8 @@ public:
 	* @param tree дерево
 	* @return поток вывода для конвейерной работы
 	*/
-	friend std::ostream& operator<<(std::ostream& out, const Tree& tree);
+	template <typename U>
+	friend std::ostream& operator<<(std::ostream& out, const Tree<U>& tree);
 
 private:
 	//Вспомогательная структура "Узел"

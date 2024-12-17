@@ -95,10 +95,10 @@ std::string Tree<T>::toString() const
 }
 
 //Оператор вывода в поток
-template<typename T>
-std::ostream& operator<<(std::ostream& out, const Tree<T>& tree)
+template<typename U>
+std::ostream& operator<<(std::ostream& out, const Tree<U>& tree)
 {
-	Tree<T>::print(tree.root, out, 0);
+	Tree<U>::print(tree.root, out, 0);
 	return out;
 }
 
