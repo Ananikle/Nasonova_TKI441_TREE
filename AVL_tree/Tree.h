@@ -2,6 +2,8 @@
 
 #include <string>
 #include <iostream>
+#include <stdexcept>
+
 
 /**
 * @brief Шаблонный класс "АВЛ-Дерево"

@@ -126,7 +126,7 @@ void Tree<T>::leftRotate(Node* a)
 
 	//Узел a забирает левого ребёнка у b
 	a->right = b->left;
-	if (a->right!= nullptr)
+	if (a->right != nullptr)
 	{
 		a->right->parent = a;
 	}
@@ -139,7 +139,7 @@ void Tree<T>::leftRotate(Node* a)
 	}
 	else
 	{
-		(a->parent->right == a ? b->parent->right: b->parent->left) = b;
+		(a->parent->right == a ? b->parent->right : b->parent->left) = b;
 	}
 
 	//Узел a становится левым ребёнком b
@@ -475,4 +475,121 @@ int Tree<T>::Node::getBalanceFactor() const
 	int rightHeight = (this->right == nullptr) ? 0 : (this->right->height);
 
 	return (leftHeight - rightHeight);
+}
+
+
+
+//Конструктор по умолчанию для пустого итератора
+template<typename T>
+Tree<T>::Iterator::Iterator()
+{
+	element = nullptr;
+}
+
+//Конструктор с параметрами для создания итератора на данный узел
+template<typename T>
+Tree<T>::Iterator::Iterator(Node* ptr)
+{
+	element = ptr;
+}
+
+//Перегрузка оператора инкремента (префиксного)
+template<typename T>
+typename Tree<T>::Iterator& Tree<T>::Iterator::operator++()
+{
+	//Если элемент end(), то идти дальше нельзя
+	if (element == nullptr)
+	{
+		throw std::out_of_range("Попытка выхода за end().");
+	}
+
+	//Проверяем, есть ли узлы справа
+	if (element->right != nullptr)
+	{
+		//Ищем самый левый справа
+		element = element->right;
+
+		while (element->left != nullptr)
+		{
+			element = element->left;
+		}
+
+		return *this;
+	}
+
+	//Если некуда подниматься
+	if (element->parent == nullptr)
+	{
+		//Элементы закончились, устанавливаем end()
+		element = nullptr;
+
+		return *this;
+	}
+
+	//Если узел - левый ребёнок
+	if (element->parent->left == element)
+	{
+		//Идём к родителю
+		element = element->parent;
+
+		return *this;
+	}
+
+	//Если узел - правый ребёнок
+
+	//Идём к прародителю, у которого узел слева
+	while (element->parent != nullptr && element->parent->right == element)
+	{
+		element = element->parent;
+	}
+
+	//Если при подъёме предки закончились, то end()
+	if (element->parent == nullptr)
+	{
+		element = nullptr;
+		return *this;
+	}
+
+	//Если нашли родителя, большего, чем узел, то переходим на него
+	element = element->parent;
+
+	return *this;
+}
+
+//Перегрузка оператора инкремента (постфиксного)
+template<typename T>
+typename Tree<T>::Iterator& Tree<T>::Iterator::operator++(int)
+{
+	Iterator copy = *this;
+
+	this->operator++();
+
+	return copy;
+}
+
+//Перегрузка оператора декремента (префиксного)
+template<typename T>
+typename Tree<T>::Iterator& Tree<T>::Iterator::operator--()
+{
+
+}
+
+//Перегрузка оператора декремента (постфиксного)
+template<typename T>
+typename Tree<T>::Iterator& Tree<T>::Iterator::operator--(int)
+{
+	
+}
+
+//Перегрузка оператора разыменования
+template<typename T>
+const T& Tree<T>::Iterator::operator*() const
+{
+	//Если элемент end(), то значение получить нельзя
+	if (element == nullptr)
+	{
+		throw std::out_of_range("Попытка чтение в end().");
+	}
+
+	return element->value;
 }
