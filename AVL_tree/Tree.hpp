@@ -521,7 +521,7 @@ Tree<T>::Iterator::Iterator()
 
 //Конструктор с параметрами для создания итератора на данный узел
 template<typename T>
-Tree<T>::Iterator::Iterator(Node* ptr)
+Tree<T>::Iterator::Iterator(const Node* ptr)
 {
 	element = ptr;
 }
