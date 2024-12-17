@@ -414,7 +414,7 @@ void Tree<T>::print(const Node* subtreeRoot, std::ostream& out, int lvl)
 	{
 		out << "      ";
 	}
-	out << subtreeRoot->value << "(" << subtreeRoot->height << ")" << std::endl;
+	out << subtreeRoot->value << std::endl;
 
 	print(subtreeRoot->left, out, lvl + 1);
 }
