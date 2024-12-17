@@ -19,6 +19,7 @@ int main()
 		std::cout << "f <number> - find number in the tree" << std::endl;
 		std::cout << "d <number> - delete number from the tree" << std::endl;
 		std::cout << "p - print" << std::endl;
+		std::cout << "t - check iterators" << std::endl;
 		std::cout << "e - exit" << std::endl;
 		std::cout << std::endl;
 
@@ -48,8 +49,8 @@ int main()
 			case 'd':
 				std::cin >> number;
 				std::cout << std::setw(6) << std::left << "Delete";
-				std::cout << std::setw(4) << std::right << number; 
-				std::cout << std::left << ": "<< (t.remove(number) ? "SUCCEED" : "FAILED") << std::endl;
+				std::cout << std::setw(4) << std::right << number;
+				std::cout << std::left << ": " << (t.remove(number) ? "SUCCEED" : "FAILED") << std::endl;
 				break;
 
 			case 'p':
@@ -57,6 +58,24 @@ int main()
 				std::cout << "[" << t.toString() << "]" << std::endl;
 				break;
 
+			case 't':
+				std::cout << "< ";
+				for (Tree<int>::Iterator it = t.begin(); it != t.end(); ++it)
+				{
+					std::cout << *it << " ";
+				}
+				std::cout << ">" << std::endl;
+
+				std::cout << "< ";
+				Tree<int>::Iterator last = t.end();
+				--last;
+				for (Tree<int>::Iterator it = last; it != t.end(); --it)
+				{
+					std::cout << *it << " ";
+				}
+				std::cout << ">" << std::endl;
+
+				break;
 			case 'e':
 				break;
 
