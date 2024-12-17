@@ -13,14 +13,14 @@ std::ostream& operator<<(std::ostream& out, const Tree<Type>& tree)
 {
 	out << "TREE = ";
 
-	for (Tree<int>::Iterator it = t.begin(); it != t.last(); ++it)
+	for (Tree<int>::Iterator it = tree.begin(); it != tree.last(); ++it)
 	{
 		out << *it << ", ";
 	}
 
-	if (t.last() != t.end())
+	if (tree.last() != tree.end())
 	{
-		out << *it << ". ";
+		out << *tree.last() << ". ";
 	}
 
 	return out;
@@ -112,7 +112,7 @@ int main()
 				break;
 
 			case 't':
-				t.printAsTree();
+				t.printAsTree(std::cout);
 				std::cout << "[" << t.toString() << "]" << std::endl;
 				break;
 
