@@ -118,48 +118,6 @@ typename Tree<T>::Iterator Tree<T>::end() const
 
 
 
-//Конструктор с параметрами для "Узла"
-template<typename T>
-Tree<T>::Node::Node(T value, Node* parent)
-{
-	height = 1;
-	Node::value = value;
-	Node::parent = parent;
-	left = nullptr;
-	right = nullptr;
-}
-
-//Пересчитывает высоту на узле
-template<typename T>
-void Tree<T>::Node::updateHeight()
-{
-	//находимся в узле (this - это ЭТОТ узел):
-
-	int leftHeight = (this->left == nullptr) ? 0 : (this->left->height);
-	int rightHeight = (this->right == nullptr) ? 0 : (this->right->height);
-
-	if (leftHeight > rightHeight)
-	{
-		this->height = leftHeight + 1;
-	}
-	else
-	{
-		this->height = rightHeight + 1;
-	}
-}
-
-//Рассчёт фактора балансировки
-template<typename T>
-int Tree<T>::Node::getBalanceFactor() const
-{
-	int leftHeight = (this->left == nullptr) ? 0 : (this->left->height);
-	int rightHeight = (this->right == nullptr) ? 0 : (this->right->height);
-
-	return (leftHeight - rightHeight);
-}
-
-
-
 //Левый поворот
 template<typename T>
 void Tree<T>::leftRotate(Node* a)
@@ -475,4 +433,46 @@ void Tree<T>::destroyTree(const Node* subtreeRoot)
 	destroyTree(subtreeRoot->left);
 	destroyTree(subtreeRoot->right);
 	delete subtreeRoot;
+}
+
+
+
+//Конструктор с параметрами для "Узла"
+template<typename T>
+Tree<T>::Node::Node(T value, Node* parent)
+{
+	height = 1;
+	Node::value = value;
+	Node::parent = parent;
+	left = nullptr;
+	right = nullptr;
+}
+
+//Пересчитывает высоту на узле
+template<typename T>
+void Tree<T>::Node::updateHeight()
+{
+	//находимся в узле (this - это ЭТОТ узел):
+
+	int leftHeight = (this->left == nullptr) ? 0 : (this->left->height);
+	int rightHeight = (this->right == nullptr) ? 0 : (this->right->height);
+
+	if (leftHeight > rightHeight)
+	{
+		this->height = leftHeight + 1;
+	}
+	else
+	{
+		this->height = rightHeight + 1;
+	}
+}
+
+//Рассчёт фактора балансировки
+template<typename T>
+int Tree<T>::Node::getBalanceFactor() const
+{
+	int leftHeight = (this->left == nullptr) ? 0 : (this->left->height);
+	int rightHeight = (this->right == nullptr) ? 0 : (this->right->height);
+
+	return (leftHeight - rightHeight);
 }
