@@ -141,7 +141,7 @@ int main()
 				std::cout << "INVALID INPUT!\a" << std::endl;
 			}
 
-		} while (choice != 'e');
+		} while (choice != 'x');
 
 
 	}
