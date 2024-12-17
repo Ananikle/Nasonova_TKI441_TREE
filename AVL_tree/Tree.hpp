@@ -95,10 +95,10 @@ std::string Tree<T>::toString() const
 }
 
 //Печать структуры дерева
-template<typename U>
-void printAsTree(std::ostream& out, const Tree<U>& tree)
+template<typename T>
+void Tree<T>::printAsTree(std::ostream& out, const Tree& tree) const
 {
-	Tree<U>::print(tree.root, out, 0);
+	(tree.root, out, 0);
 }
 
 //Получение итератора на первый элемент

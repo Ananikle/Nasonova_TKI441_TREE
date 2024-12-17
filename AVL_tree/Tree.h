@@ -83,8 +83,7 @@ public:
 	* @param out поток вывода
 	* @param tree дерево
 	*/
-	template<typename U>
-	void printAsTree(std::ostream& out, const Tree<U>& tree);
+	void printAsTree(std::ostream& out, const Tree& tree) const;
 
 	/*
 	* @brief Получение итератора на первый элемент
