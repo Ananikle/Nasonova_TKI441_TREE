@@ -186,7 +186,7 @@ private:
 		Iterator();
 	private:
 		//Конструктор с параметрами для создания итератора на данный узел
-		Iterator(Node* ptr);
+		Iterator(const Node* ptr);
 
 	public:
 		/*
