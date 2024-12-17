@@ -171,7 +171,6 @@ private:
 	class Iterator
 	{
 	public:
-
 		/*
 		* @brief Конструктор по умолчанию для пустого итератора
 		*/
