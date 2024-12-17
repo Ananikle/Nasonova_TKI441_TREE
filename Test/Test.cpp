@@ -1,4 +1,4 @@
-#include "pch.h"
+п»ї#include "pch.h"
 #include "CppUnitTest.h"
 
 #include "../AVL/Tree.hpp"
@@ -11,7 +11,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-//функция для сравнения двух итераторов методом AreEqual
+//С„СѓРЅРєС†РёСЏ РґР»СЏ СЃСЂР°РІРЅРµРЅРёСЏ РґРІСѓС… РёС‚РµСЂР°С‚РѕСЂРѕРІ РјРµС‚РѕРґРѕРј AreEqual
 static std::wstring ToString(const Tree<int>::Iterator& it) {
 	if (it == Tree<int>::Iterator())
 	{
