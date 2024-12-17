@@ -386,7 +386,7 @@ void Tree<T>::deleteNode(Node*& linkToNode)
 
 //Рекурсивная функция поиска минимумального (наиболее левого) узла
 template<typename T>
-Tree<T>::Node*& Tree<T>::getMinIn(Node*& subtreeRoot)
+typename Tree<T>::Node*& Tree<T>::getMinIn(Node*& subtreeRoot)
 {
 	if (subtreeRoot->left == nullptr)
 	{
