@@ -6,6 +6,7 @@
 #include <utility>
 #include <string>
 #include <sstream>
+#include <stdexcept>
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -447,7 +448,7 @@ namespace Test
 			original.insert(4);
 
 			// Assert 
-			Assert::IsTrue(original.begin() == original.end());
+			Assert::IsFalse(original.begin() == original.end());
 		}
 
 		TEST_METHOD(EqualOperator_NotEqualNotEmptyIterators_Fail)
@@ -468,7 +469,7 @@ namespace Test
 			Tree<int> original;
 
 			// Assert 
-			Assert::IsTrue(original.begin() != original.last());
+			Assert::IsFalse(original.begin() != original.last());
 		}
 
 		TEST_METHOD(NotEqualOperator_EqualNotEmptyIterators_Fail)
@@ -478,7 +479,7 @@ namespace Test
 			original.insert(4);
 
 			// Assert 
-			Assert::IsTrue(original.begin() != original.last());
+			Assert::IsFalse(original.begin() != original.last());
 		}
 
 		TEST_METHOD(NotEqualOperator_NotEqualEmptyIterators_Success)
@@ -503,50 +504,239 @@ namespace Test
 			Assert::IsTrue(original.begin() != original.last());
 		}
 
-		TEST_METHOD(PrefixIncrementOperator_ValidData_Success)
+		TEST_METHOD(PrefixIncrementOperator_ValidIterator_Success)
 		{
+			// Arrange
+			Tree<int> original;
+			for (int i = 10; i >= 5; --i)
+			{
+				original.insert(i);
+			}
+			for (int i = 0; i < 5; ++i)
+			{
+				original.insert(i);
+			}
 
+			// Assert 
+			Tree<int>::Iterator it = original.begin();
+			for (int i = 1; i <= 10; ++i)
+			{
+				Assert::AreEqual(*(++it), i);
+			}
 		}
 
-		TEST_METHOD(PrefixIncrementOperator_InvalidData_Success)
+		TEST_METHOD(PrefixIncrementOperator_InvalidIterator_Fail)
 		{
+			// Arrange
+			Tree<int> original;
+			for (int i = 10; i >= 5; --i)
+			{
+				original.insert(i);
+			}
+			for (int i = 0; i < 5; ++i)
+			{
+				original.insert(i);
+			}
 
+			// Act
+			Tree<int>::Iterator it = original.begin();
+			for (int i = 0; i <= 10; ++i)
+			{
+				++it;
+			}
+
+			// Создание лямбда-функции для провоцирования исключения
+			auto callToFail = [&it]() {++it; };
+
+			// Assert 
+			Assert::ExpectException<std::out_of_range>(callToFail);
 		}
 
-		TEST_METHOD(PostfixIncrementOperator_ValidData_Success)
+		TEST_METHOD(PostfixIncrementOperator_ValidIterator_Success)
 		{
+			// Arrange
+			Tree<int> original;
+			for (int i = 10; i >= 5; --i)
+			{
+				original.insert(i);
+			}
+			for (int i = 0; i < 5; ++i)
+			{
+				original.insert(i);
+			}
 
+			// Assert 
+			Tree<int>::Iterator it = original.begin();
+			for (int i = 0; i <= 10; ++i)
+			{
+				Assert::AreEqual(*(it++), i);
+			}
 		}
 
-		TEST_METHOD(PostfixIncrementOperator_InvalidData_Success)
+		TEST_METHOD(PostfixIncrementOperator_InvalidIterator_Fail)
 		{
+			// Arrange
+			Tree<int> original;
+			for (int i = 10; i >= 5; --i)
+			{
+				original.insert(i);
+			}
+			for (int i = 0; i < 5; ++i)
+			{
+				original.insert(i);
+			}
 
+			// Act
+			Tree<int>::Iterator it = original.begin();
+			for (int i = 0; i <= 10; ++i)
+			{
+				it++;
+			}
+
+			// Создание лямбда-функции для провоцирования исключения
+			auto callToFail = [&it]() { it++; };
+
+			// Assert 
+			Assert::ExpectException<std::out_of_range>(callToFail);
 		}
 
-		TEST_METHOD(PrefixDecrementOperator_ValidData_Success)
+		TEST_METHOD(PrefixDecrementOperator_ValidIterator_Success)
 		{
+			// Arrange
+			Tree<int> original;
+			for (int i = 10; i >= 5; --i)
+			{
+				original.insert(i);
+			}
+			for (int i = 0; i < 5; ++i)
+			{
+				original.insert(i);
+			}
 
+			// Assert 
+			Tree<int>::Iterator it = original.last();
+			for (int i = 9; i >= 0; --i)
+			{
+				Assert::AreEqual(*(--it), i);
+			}
 		}
 
-		TEST_METHOD(PrefixDecrementOperator_InvalidData_Success)
+		TEST_METHOD(PrefixDecrementOperator_InvalidIterator_Fail)
 		{
+			// Arrange
+			Tree<int> original;
+			for (int i = 10; i >= 5; --i)
+			{
+				original.insert(i);
+			}
+			for (int i = 0; i < 5; ++i)
+			{
+				original.insert(i);
+			}
 
+			// Act
+			Tree<int>::Iterator it = original.last();
+			for (int i = 0; i <= 10; ++i)
+			{
+				--it;
+			}
+
+			// Создание лямбда-функции для провоцирования исключения
+			auto callToFail = [&it]() {--it; };
+
+			// Assert 
+			Assert::ExpectException<std::out_of_range>(callToFail);
 		}
 
-		TEST_METHOD(PostfixDecrementOperator_ValidData_Success)
+		TEST_METHOD(PostfixDecrementOperator_ValidIterator_Success)
 		{
+			// Arrange
+			Tree<int> original;
+			for (int i = 10; i >= 5; --i)
+			{
+				original.insert(i);
+			}
+			for (int i = 0; i < 5; ++i)
+			{
+				original.insert(i);
+			}
 
+			// Assert 
+			Tree<int>::Iterator it = original.last();
+			for (int i = 10; i >= 0; --i)
+			{
+				Assert::AreEqual(*(it--), i);
+			}
 		}
 
-		TEST_METHOD(PostfixDecrementOperator_InvalidData_Success)
+		TEST_METHOD(PostfixDecrementOperator_InvalidIterator_Fail)
 		{
+			// Arrange
+			Tree<int> original;
+			for (int i = 10; i >= 5; --i)
+			{
+				original.insert(i);
+			}
+			for (int i = 0; i < 5; ++i)
+			{
+				original.insert(i);
+			}
 
+			// Act
+			Tree<int>::Iterator it = original.last();
+			for (int i = 0; i <= 10; ++i)
+			{
+				it--;
+			}
+
+			// Создание лямбда-функции для провоцирования исключения
+			auto callToFail = [&it]() { it--; };
+
+			// Assert 
+			Assert::ExpectException<std::out_of_range>(callToFail);
 		}
 
 
-		TEST_METHOD(DereferenceOperator_ValidData_Success)
+		TEST_METHOD(DereferenceOperator_ValidIterator_Success)
 		{
+			// Arrange
+			Tree<int> original;
+			for (int i = 10; i >= 5; --i)
+			{
+				original.insert(i);
+			}
+			for (int i = 0; i < 5; ++i)
+			{
+				original.insert(i);
+			}
 
+			// Act
+			Tree<int>::Iterator it1 = original.begin();
+			Tree<int>::Iterator it2 = original.last();
+			while (it1 != it2)
+			{
+				++it1;
+				--it2;
+			}
+
+			// Assert 
+			Assert::AreEqual(*it1, *it2);
+			Assert::AreSame(*it1, *it2);
+		}
+
+		TEST_METHOD(DereferenceOperator_InvalidIterator_Fail)
+		{
+			// Arrange
+			Tree<int> original;
+
+			// Act
+			Tree<int>::Iterator it = original.begin();
+
+			// Создание лямбда-функции для провоцирования исключения
+			auto callToFail = [it]() { *it; };
+
+			// Assert 
+			Assert::ExpectException<std::out_of_range>(callToFail);
 		}
 	};
 }
