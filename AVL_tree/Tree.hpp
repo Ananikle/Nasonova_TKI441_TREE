@@ -114,6 +114,18 @@ typename Tree<T>::Iterator Tree<T>::begin() const
 	return Iterator(root->getTheMostLeft());
 }
 
+//Получение итератора на последний элемент
+template<typename T>
+typename Tree<T>::Iterator Tree<T>::last() const
+{
+	if (root == nullptr)
+	{
+		return Iterator();
+	}
+
+	return Iterator(root->getTheMostRight());
+}
+
 //Получение итератора на элемент, следующий за последним
 template<typename T>
 typename Tree<T>::Iterator Tree<T>::end() const
@@ -613,11 +625,10 @@ typename Tree<T>::Iterator& Tree<T>::Iterator::operator++(int)
 template<typename T>
 typename Tree<T>::Iterator& Tree<T>::Iterator::operator--()
 {
-	//Если элемент end(), то идти дальше нельзя
+	//Если элемент end(), то от него двигаться нельзя
 	if (element == nullptr)
 	{
-		//,,,,
-		throw std::out_of_range("Попытка выхода за end().");
+		throw std::out_of_range("Попытка прохода до end().");
 	}
 
 	//Проверяем, есть ли узлы слева
