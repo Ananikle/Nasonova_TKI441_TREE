@@ -122,9 +122,9 @@ int main()
 				break;
 
 			case 'e':
-				for (Tree<int>::Iterator it = t.begin(); it != t.end(); ++it)
+				for (auto element : t)
 				{
-					std::cout << *it << " > ";
+					std::cout << element << " > ";
 				}
 				std::cout << "END" << std::endl;
 
