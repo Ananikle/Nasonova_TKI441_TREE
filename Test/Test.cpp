@@ -8,10 +8,11 @@
 #include <sstream>
 
 
-
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-//функция для сравнения двух итераторов методом AreEqual
+
+
+// Функция для сравнения двух итераторов методом AreEqual
 static std::wstring ToString(const Tree<int>::Iterator& it) {
 	if (it == Tree<int>::Iterator())
 	{
@@ -20,6 +21,8 @@ static std::wstring ToString(const Tree<int>::Iterator& it) {
 
 	return std::to_wstring(*it);
 }
+
+
 
 namespace Test
 {
@@ -181,7 +184,7 @@ namespace Test
 			Assert::IsTrue(original.isEmpty());
 		}
 
-		TEST_METHOD(isEmpty_NonEmptyTree_Fail)
+		TEST_METHOD(isEmpty_NotEmptyTree_Fail)
 		{
 			// Arrange
 			Tree<int> original;
@@ -347,7 +350,7 @@ namespace Test
 			Assert::AreEqual(original.begin(), original.end());
 		}
 
-		TEST_METHOD(Begin_NonEmptyTree_Success)
+		TEST_METHOD(Begin_NotEmptyTree_Success)
 		{
 			// Arrange
 			Tree<int> original;
@@ -369,7 +372,7 @@ namespace Test
 			Assert::AreEqual(original.last(), original.end());
 		}
 
-		TEST_METHOD(Last_NonEmptyTree_Success)
+		TEST_METHOD(Last_NotEmptyTree_Success)
 		{
 			// Arrange
 			Tree<int> original;
@@ -391,7 +394,7 @@ namespace Test
 			Assert::AreEqual(original.end(), original.end());
 		}
 
-		TEST_METHOD(End_NonEmptyTree_Success)
+		TEST_METHOD(End_NotEmptyTree_Success)
 		{
 			// Arrange
 			Tree<int> original;
@@ -427,7 +430,7 @@ namespace Test
 			Assert::IsTrue(original.begin() == original.last());
 		}
 
-		TEST_METHOD(EqualOperator_EqualNonEmptyIterators_Success)
+		TEST_METHOD(EqualOperator_EqualNotEmptyIterators_Success)
 		{
 			// Arrange
 			Tree<int> original;
@@ -437,7 +440,7 @@ namespace Test
 			Assert::IsTrue(original.begin() == original.last());
 		}
 
-		TEST_METHOD(EqualOperator_NonEqualEmptyIterators_Fail)
+		TEST_METHOD(EqualOperator_NotEqualEmptyIterators_Fail)
 		{
 			// Arrange
 			Tree<int> original;
@@ -447,7 +450,7 @@ namespace Test
 			Assert::IsTrue(original.begin() == original.end());
 		}
 
-		TEST_METHOD(EqualOperator_NonEqualNonEmptyIterators_Fail)
+		TEST_METHOD(EqualOperator_NotEqualNotEmptyIterators_Fail)
 		{
 			// Arrange
 			Tree<int> original;
@@ -468,7 +471,7 @@ namespace Test
 			Assert::IsTrue(original.begin() != original.last());
 		}
 
-		TEST_METHOD(NotEqualOperator_EqualNonEmptyIterators_Fail)
+		TEST_METHOD(NotEqualOperator_EqualNotEmptyIterators_Fail)
 		{
 			// Arrange
 			Tree<int> original;
@@ -478,7 +481,7 @@ namespace Test
 			Assert::IsTrue(original.begin() != original.last());
 		}
 
-		TEST_METHOD(NotEqualOperator_NonEqualEmptyIterators_Success)
+		TEST_METHOD(NotEqualOperator_NotEqualEmptyIterators_Success)
 		{
 			// Arrange
 			Tree<int> original;
@@ -488,7 +491,7 @@ namespace Test
 			Assert::IsTrue(original.begin() != original.end());
 		}
 
-		TEST_METHOD(NotEqualOperator_NonEqualNonEmptyIterators_Success)
+		TEST_METHOD(NotEqualOperator_NotEqualNotEmptyIterators_Success)
 		{
 			// Arrange
 			Tree<int> original;
