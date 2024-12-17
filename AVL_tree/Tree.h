@@ -172,6 +172,7 @@ private:
 	//Вспомогательный класс "Итератор"
 	class Iterator
 	{
+		friend class Tree;
 	public:
 		/*
 		* @brief Конструктор по умолчанию для пустого итератора

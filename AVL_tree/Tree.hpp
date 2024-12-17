@@ -106,6 +106,11 @@ std::ostream& operator<<(std::ostream& out, const Tree<U>& tree)
 template<typename T>
 typename Tree<T>::Iterator Tree<T>::begin() const
 {
+	if (root == nullptr)
+	{
+		return Iterator();
+	}
+
 	return Iterator();
 }
 
