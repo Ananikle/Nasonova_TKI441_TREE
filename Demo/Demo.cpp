@@ -109,6 +109,7 @@ int main()
 
 			case 'r':
 				std::cin >> t;
+				std::cout << "DONE" << std::endl;
 				break;
 
 			case 't':
