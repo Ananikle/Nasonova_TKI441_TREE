@@ -59,22 +59,21 @@ int main()
 				break;
 
 			case 't':
-				std::cout << "< ";
+			{
 				for (Tree<int>::Iterator it = t.begin(); it != t.end(); ++it)
 				{
-					std::cout << *it << " ";
+					std::cout << *it << " >> ";
 				}
-				std::cout << ">" << std::endl;
+				std::cout << "END" << std::endl;
 
-				std::cout << "< ";
 				Tree<int>::Iterator last = t.end();
 				--last;
 				for (Tree<int>::Iterator it = last; it != t.end(); --it)
 				{
-					std::cout << *it << " ";
+					std::cout << *it << " << ";
 				}
-				std::cout << ">" << std::endl;
-
+				std::cout << "END" << std::endl;
+			}
 				break;
 			case 'e':
 				break;
