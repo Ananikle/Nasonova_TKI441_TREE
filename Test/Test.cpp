@@ -411,34 +411,94 @@ namespace Test
 
 		TEST_METHOD(DefaultConstructor_Success)
 		{
+			// Act
+			Tree<int>::Iterator a, b;
 
+			// Assert 
+			Assert::AreEqual(a, b);
 		}
 
-		TEST_METHOD(CopyConstructor_ValidData_Success)
+		TEST_METHOD(EqualOperator_EqualEmptyIterators_Success)
 		{
+			// Arrange
+			Tree<int> original;
 
+			// Assert 
+			Assert::IsTrue(original.begin() == original.last());
 		}
 
-		TEST_METHOD(CopyAssignmentOperator_ValidData_Success)
+		TEST_METHOD(EqualOperator_EqualNonEmptyIterators_Success)
 		{
+			// Arrange
+			Tree<int> original;
+			original.insert(4);
 
+			// Assert 
+			Assert::IsTrue(original.begin() == original.last());
 		}
 
-		TEST_METHOD(CopyAssignmentOperator_InvalidData_Success)
+		TEST_METHOD(EqualOperator_NonEqualEmptyIterators_Fail)
 		{
+			// Arrange
+			Tree<int> original;
+			original.insert(4);
 
+			// Assert 
+			Assert::IsTrue(original.begin() == original.end());
 		}
 
-		TEST_METHOD(EqualOperator_ValidData_Success)
+		TEST_METHOD(EqualOperator_NonEqualNonEmptyIterators_Fail)
 		{
+			// Arrange
+			Tree<int> original;
+			original.insert(4);
+			original.insert(5);
+			original.insert(3);
 
+			// Assert 
+			Assert::IsFalse(original.begin() == original.last());
 		}
 
-		TEST_METHOD(NotEqualOperator_ValidData_Success)
+		TEST_METHOD(NotEqualOperator_EqualEmptyIterators_Fail)
 		{
+			// Arrange
+			Tree<int> original;
 
+			// Assert 
+			Assert::IsTrue(original.begin() != original.last());
 		}
 
+		TEST_METHOD(NotEqualOperator_EqualNonEmptyIterators_Fail)
+		{
+			// Arrange
+			Tree<int> original;
+			original.insert(4);
+
+			// Assert 
+			Assert::IsTrue(original.begin() != original.last());
+		}
+
+		TEST_METHOD(NotEqualOperator_NonEqualEmptyIterators_Success)
+		{
+			// Arrange
+			Tree<int> original;
+			original.insert(4);
+
+			// Assert 
+			Assert::IsTrue(original.begin() != original.end());
+		}
+
+		TEST_METHOD(NotEqualOperator_NonEqualNonEmptyIterators_Success)
+		{
+			// Arrange
+			Tree<int> original;
+			original.insert(4);
+			original.insert(5);
+			original.insert(3);
+
+			// Assert 
+			Assert::IsTrue(original.begin() != original.last());
+		}
 
 		TEST_METHOD(PrefixIncrementOperator_ValidData_Success)
 		{
