@@ -52,6 +52,11 @@ public:
 	Tree& operator=(Tree&& other) noexcept;
 
 	/*
+	* @brief Очистка дерева
+	*/
+	void clear();
+
+	/*
 	* @brief Вставка элемента в дерево
 	* @param value значение для вставки
 	* @return информацию о том, найден ли элемент

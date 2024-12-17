@@ -59,6 +59,14 @@ Tree<T>& Tree<T>::operator=(Tree<T>&& other) noexcept
 	return *this;
 }
 
+//Очистка дерева
+template<typename T>
+void Tree<T>::clear()
+{
+	destroyTree(this->root);
+	this->root = nullptr;
+}
+
 //Вставка элемента в дерево
 template<typename T>
 bool Tree<T>::insert(T value)
