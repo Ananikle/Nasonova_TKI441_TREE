@@ -613,14 +613,70 @@ typename Tree<T>::Iterator& Tree<T>::Iterator::operator++(int)
 template<typename T>
 typename Tree<T>::Iterator& Tree<T>::Iterator::operator--()
 {
+	//Если элемент end(), то идти дальше нельзя
+	if (element == nullptr)
+	{
+		//,,,,
+		throw std::out_of_range("Попытка выхода за end().");
+	}
 
+	//Проверяем, есть ли узлы слева
+	if (element->left != nullptr)
+	{
+		//Ищем самый правый слева
+		element = element->left->getTheMostRight();
+
+		return *this;
+	}
+
+	//Если некуда подниматься
+	if (element->parent == nullptr)
+	{
+		//Элементы закончились, устанавливаем end()
+		element = nullptr;
+
+		return *this;
+	}
+
+	//Если узел - правый ребёнок
+	if (element->parent->right == element)
+	{
+		//Идём к родителю
+		element = element->parent;
+
+		return *this;
+	}
+
+	//Если узел - левый ребёнок
+
+	//Идём к прародителю, у которого узел справа
+	while (element->parent != nullptr && element->parent->left == element)
+	{
+		element = element->parent;
+	}
+
+	//Если при подъёме предки закончились, то end()
+	if (element->parent == nullptr)
+	{
+		element = nullptr;
+		return *this;
+	}
+
+	//Если нашли родителя, меньшего, чем узел, то переходим на него
+	element = element->parent;
+
+	return *this;
 }
 
 //Перегрузка оператора декремента (постфиксного)
 template<typename T>
 typename Tree<T>::Iterator& Tree<T>::Iterator::operator--(int)
 {
-	
+	Iterator copy = *this;
+
+	this->operator--();
+
+	return copy;
 }
 
 //Перегрузка оператора разыменования
