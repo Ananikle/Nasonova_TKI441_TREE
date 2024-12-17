@@ -106,7 +106,7 @@ std::string Tree<T>::toString() const
 template<typename T>
 void Tree<T>::printAsTree(std::ostream& out) const
 {
-	(root, out, 0);
+	print(root, out, 0);
 }
 
 //Получение итератора на первый элемент
