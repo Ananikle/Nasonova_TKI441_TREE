@@ -10,6 +10,9 @@ template<typename T>
 class Tree
 {
 public:
+	struct Node;
+	class Iterator;
+
 	/*
 	* @brief Конструктор по умолчанию
 	*/
@@ -82,25 +85,17 @@ public:
 	template <typename U>
 	friend std::ostream& operator<<(std::ostream& out, const Tree<U>& tree);
 
-private:
-	//Вспомогательная структура "Узел"
-	struct Node
-	{
-		//Конструктор с параметрами для "Узла"
-		Node(T value, Node* parent);
+	/*
+	* @brief Получение итератора на первый элемент
+	* @return итератор на begin-элемент
+	*/
+	Iterator begin() const;
 
-		//Пересчитывает высоту на узле
-		void updateHeight();
-
-		//Рассчёт фактора балансировки
-		int getBalanceFactor() const;
-
-		int height;
-		T value;
-		Node* parent;
-		Node* left;
-		Node* right;
-	};
+	/*
+	* @brief Получение итератора на элемент, следующий за последним
+	* @return итератор на end-элемент
+	*/
+	Iterator end() const;
 
 private:
 	//Указатель на корневой элемент дерева
@@ -151,5 +146,31 @@ private:
 
 	//Рекурсивная функция удаления дерева из памяти
 	static void destroyTree(const Node* subtreeRoot);
+
+private:
+	//Вспомогательная структура "Узел"
+	struct Node
+	{
+		//Конструктор с параметрами для "Узла"
+		Node(T value, Node* parent);
+
+		//Пересчитывает высоту на узле
+		void updateHeight();
+
+		//Рассчёт фактора балансировки
+		int getBalanceFactor() const;
+
+		int height;
+		T value;
+		Node* parent;
+		Node* left;
+		Node* right;
+	};
+
+	//Вспомогательный класс "Итератор"
+	class Iterator
+	{
+
+	};
 };
 

@@ -102,6 +102,20 @@ std::ostream& operator<<(std::ostream& out, const Tree<U>& tree)
 	return out;
 }
 
+//Получение итератора на первый элемент
+template<typename T>
+typename Tree<T>::Iterator Tree<T>::begin() const
+{
+	return Iterator();
+}
+
+//Получение итератора на элемент, следующий за последним
+template<typename T>
+typename Tree<T>::Iterator Tree<T>::end() const
+{
+	return Iterator();
+}
+
 
 
 //Конструктор с параметрами для "Узла"
