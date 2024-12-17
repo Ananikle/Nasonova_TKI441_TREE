@@ -223,7 +223,7 @@ private:
 
 	private:
 		//Указатель на текущий узел
-		Node* element;
+		const Node* element;
 	};
 };
 
