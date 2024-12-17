@@ -11,16 +11,31 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+//функция для сравнения двух итераторов методом AreEqual
+static std::wstring ToString(const Tree<int>::Iterator& it) {
+	if (it == Tree<int>::Iterator())
+	{
+		return L"END";
+	}
+
+	return std::to_wstring(*it);
+}
+
 namespace Test
 {
+
+
 	TEST_CLASS(TreeTest)
 	{
+
+
 	public:
 
 		TEST_METHOD(DefaultConstructor_Success)
 		{
 			// Act
 			Tree<int> t;
+
 			// Assert 
 			Assert::IsTrue(t.isEmpty());
 		}
@@ -323,34 +338,70 @@ namespace Test
 			Assert::AreEqual(stream.str(), result);
 		}
 
-		TEST_METHOD(Begin_ValidData_Success)
+		TEST_METHOD(Begin_EmptyTree_Success)
 		{
+			// Arrange
+			Tree<int> original;
 
+			// Assert 
+			Assert::AreEqual(original.begin(), original.end());
 		}
 
-		TEST_METHOD(Begin_InvalidData_Success)
+		TEST_METHOD(Begin_NonEmptyTree_Success)
 		{
+			// Arrange
+			Tree<int> original;
+			for (int i = 1; i < 10; ++i)
+			{
+				original.insert(i);
+			}
 
+			// Assert 
+			Assert::AreNotEqual(original.begin(), original.end());
 		}
 
-		TEST_METHOD(Last_ValidData_Success)
+		TEST_METHOD(Last_EmptyTree_Success)
 		{
+			// Arrange
+			Tree<int> original;
 
+			// Assert 
+			Assert::AreEqual(original.last(), original.end());
 		}
 
-		TEST_METHOD(Last_InvalidData_Success)
+		TEST_METHOD(Last_NonEmptyTree_Success)
 		{
+			// Arrange
+			Tree<int> original;
+			for (int i = 1; i < 10; ++i)
+			{
+				original.insert(i);
+			}
 
+			// Assert 
+			Assert::AreNotEqual(original.last(), original.end());
 		}
 
-		TEST_METHOD(End_ValidData_Success)
+		TEST_METHOD(End_EmptyTree_Success)
 		{
+			// Arrange
+			Tree<int> original;
 
+			// Assert 
+			Assert::AreEqual(original.end(), original.end());
 		}
 
-		TEST_METHOD(End_InvalidData_Success)
+		TEST_METHOD(End_NonEmptyTree_Success)
 		{
+			// Arrange
+			Tree<int> original;
+			for (int i = 1; i < 10; ++i)
+			{
+				original.insert(i);
+			}
 
+			// Assert 
+			Assert::AreEqual(original.end(), original.end());
 		}
 	};
 
