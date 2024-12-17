@@ -526,6 +526,20 @@ Tree<T>::Iterator::Iterator(Node* ptr)
 	element = ptr;
 }
 
+//Проверка итераторов на равенство
+template<typename T>
+bool Tree<T>::Iterator::operator==(const Iterator& other) const
+{
+	return this->element == other.element;
+}
+
+//Проверка итераторов на неравенство
+template<typename T>
+bool Tree<T>::Iterator::operator!=(const Iterator& other) const
+{
+	return !(this->operator==(other));
+}
+
 //Перегрузка оператора инкремента (префиксного)
 template<typename T>
 typename Tree<T>::Iterator& Tree<T>::Iterator::operator++()

@@ -190,6 +190,18 @@ private:
 
 	public:
 		/*
+		* @brief Проверка итераторов на равенство
+		* @return результат проверки: true / false
+		*/
+		bool operator==(const Iterator& other) const;
+
+		/*
+		* @brief Проверка итераторов на неравенство
+		* @return результат проверки: true / false
+		*/
+		bool operator!=(const Iterator& other) const;
+
+		/*
 		* @brief Сдвиг итератора вперёд
 		* @return ссылка на сдвинутый вперёд итератор
 		*/
