@@ -67,6 +67,13 @@ void Tree<T>::clear()
 	this->root = nullptr;
 }
 
+//Проверка дерева на пустоту
+template<typename T>
+bool Tree<T>::isEmpty() const
+{
+	return (root == nullptr);
+}
+
 //Вставка элемента в дерево
 template<typename T>
 bool Tree<T>::insert(T value)
