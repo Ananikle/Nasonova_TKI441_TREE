@@ -2,13 +2,19 @@
 
 #include <string>
 #include <iostream>
+#include <stdexcept>
+
 
 /**
-* @brief Класс "АВЛ-Дерево"
+* @brief Шаблонный класс "АВЛ-Дерево"
 */
+template<typename T>
 class Tree
 {
 public:
+	struct Node;
+	class Iterator;
+
 	/*
 	* @brief Конструктор по умолчанию
 	*/
@@ -46,25 +52,36 @@ public:
 	Tree& operator=(Tree&& other) noexcept;
 
 	/*
+	* @brief Очистка дерева
+	*/
+	void clear();
+
+	/*
+	* @brief Проверка дерева на пустоту
+	* @return информацию о том, пусто ли дерево
+	*/
+	bool isEmpty() const;
+
+	/*
 	* @brief Вставка элемента в дерево
 	* @param value значение для вставки
 	* @return информацию о том, найден ли элемент
 	*/
-	bool insert(int value);
+	bool insert(T value);
 
 	/*
 	* @brief Поиск элемента в дереве
 	* @param value значение для вставки
 	* @return информацию о том, найден ли элемент
 	*/
-	bool find(int value) const;
+	bool find(T value) const;
 
 	/*
 	* @brief Удаление элемента из дерева
 	* @param value значение для удаления
 	* @return информацию о том, удален ли элемент
 	*/
-	bool remove(int value);
+	bool remove(T value);
 
 	/*
 	* @brief Приведение дерева к строке
@@ -73,48 +90,167 @@ public:
 	std::string toString() const;
 
 	/*
-	* @brief Вывод дерева в поток
+	* @brief Печать структуры дерева
 	* @param out поток вывода
 	* @param tree дерево
-	* @return поток вывода для конвейерной работы
 	*/
-	friend std::ostream& operator<<(std::ostream& out, const Tree& tree);
+	void printAsTree(std::ostream& out) const;
 
-private:
-	//Вспомогательная структура "Узел"
-	struct Node
-	{
-		//Конструктор с параметрами для "Узла"
-		Node(int value, Node* parent);
+	/*
+	* @brief Получение итератора на первый элемент
+	* @return итератор на begin-элемент
+	*/
+	Iterator begin() const;
 
-		//Пересчитывает высоту на узле
-		void updateHeight();
+	/*
+	* @brief Получение итератора на последний элемент
+	* @return итератор на last-элемент
+	*/
+	Iterator last() const;
 
-		unsigned height;
-		int value;
-		Node* parent;
-		Node* left;
-		Node* right;
-	};
+	/*
+	* @brief Получение итератора на элемент, следующий за последним
+	* @return итератор на end-элемент
+	*/
+	Iterator end() const;
 
 private:
 	//Указатель на корневой элемент дерева
 	Node* root;
 
 private:
+	//Функции для AVL-балансировки
+
+	//Левый поворот
+	void leftRotate(Node* a);
+
+	//Правый поворот
+	void rightRotate(Node* a);
+
+	//Правый-левый поворот
+	void rightLeftRotate(Node* a);
+
+	//Левый-правый поворот
+	void leftRightRotate(Node* a);
+
+	//Балансировка поддерева
+	void balanceSubtree(Node* subtreeRoot);
+
+private:
 	//Рекурсивная функция вставки в поддерево
-	static bool insertTo(Node*& subtreeRoot, Node* subtreeParent, int newValue);
+	bool insertTo(Node*& subtreeRoot, Node* subtreeParent, T newValue);
 
 	//Рекурсивная функция поиска в поддереве
-	static bool findIn(const Node* subtreeRoot, int valueToFind);
+	static bool findIn(const Node* subtreeRoot, T valueToFind);
+
+	//Рекурсивная функция удаления элемента в поддереве
+	bool deleteIn(Node*& subtreeRoot, T valueToDelete);
+
+	//Функция удаления узла из дерева
+	static void deleteNode(Tree::Node*& nodeToDelete);
+
+	//Рекурсивная функция поиска минимального (наиболее левого) узла
+	static Node*& getMinIn(Node*& subtreeRoot);
 
 	//Рекурсивная функция печати в поток
-	static void print(const Node* subtreeRoot, std::ostream& out, unsigned lvl);
+	static void print(const Node* subtreeRoot, std::ostream& out, int lvl);
 
 	//Рекурсивная функция вывода дерева в строку
 	static void putToString(const Node* subtreeRoot, std::string& str);
 
+	//Рекурсивная функция копирования дерева
+	static void copyTree(Node*& subtreeRootTo, Node* subtreeParent, const Node* subtreeRootFrom);
+
 	//Рекурсивная функция удаления дерева из памяти
 	static void destroyTree(const Node* subtreeRoot);
+
+private:
+	//Вспомогательная структура "Узел"
+	struct Node
+	{
+		//Конструктор с параметрами для "Узла"
+		Node(T value, Node* parent);
+
+		//Пересчитывает высоту на узле
+		void updateHeight();
+
+		//Рассчёт фактора балансировки
+		int getBalanceFactor() const;
+
+		//Получение самого левого потомка
+		const Node* getTheMostLeft() const;
+
+		//Получение самого правого потомка
+		const Node* getTheMostRight() const;
+
+		int height;
+		T value;
+		Node* parent;
+		Node* left;
+		Node* right;
+	};
+
+	//Вспомогательный класс "Итератор"
+	class Iterator
+	{
+		friend class Tree;
+	public:
+		/*
+		* @brief Конструктор по умолчанию для пустого итератора
+		*/
+		Iterator();
+	private:
+		//Конструктор с параметрами для создания итератора на данный узел
+		Iterator(const Node* ptr);
+
+	public:
+		/*
+		* @brief Проверка итераторов на равенство
+		* @return результат проверки: true / false
+		*/
+		bool operator==(const Iterator& other) const;
+
+		/*
+		* @brief Проверка итераторов на неравенство
+		* @return результат проверки: true / false
+		*/
+		bool operator!=(const Iterator& other) const;
+
+		/*
+		* @brief Сдвиг итератора вперёд
+		* @return ссылка на сдвинутый вперёд итератор
+		*/
+		Iterator& operator++();
+
+		/*
+		* @brief Сдвиг итератора вперёд
+		* @param int фиктивное значение
+		* @return итератор на предыдущую позицию
+		*/
+		Iterator operator++(int);
+
+		/*
+		* @brief Сдвиг итератора назад
+		* @return ссылка на сдвинутый вперёд итератор
+		*/
+		Iterator& operator--();
+
+		/*
+		* @brief Сдвиг итератора назад
+		* @param int фиктивное значение
+		* @return итератор на предыдущую позицию
+		*/
+		Iterator operator--(int);
+
+		/*
+		* @brief Разыменование
+		* @return значение, на которое указывает итератор
+		*/
+		const T& operator*() const;
+
+	private:
+		//Указатель на текущий узел
+		const Node* element;
+	};
 };
 
