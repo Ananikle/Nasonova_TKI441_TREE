@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "CppUnitTest.h"
 
-#include "../AVL/Tree.hpp"
+#include "../AVL_tree/Tree.hpp"
 
 #include <utility>
 #include <string>
